@@ -31,12 +31,6 @@ CREATE TABLE Projet
     nom varchar(255) NOT NULL
 );
 
-CREATE TABLE Entreprise
-(
-    id int PRIMARY KEY IDENTITY (1,1),
-    nom varchar(300) NOT NULL
-);
-
 CREATE TABLE Compte
 (
     id int PRIMARY KEY IDENTITY (1,1),
@@ -46,17 +40,19 @@ CREATE TABLE Compte
     mail varchar(300) NOT NULL,
     mdp varchar(300) NOT NULL,
 
-    idEntreprise int NOT NULL,
+    tel varchar(20) NOT NULL,
+
+    nomEntreprise varchar(300) NOT NULL,
     idTypeCompte int NOT NULL,
 
-    FOREIGN KEY (idTypeCompte) REFERENCES TypeCompte(id),
-    FOREIGN KEY (idEntreprise) REFERENCES Entreprise(id)
+    FOREIGN KEY (idTypeCompte) REFERENCES TypeCompte(id)
 );
 
 CREATE TABLE Projet_Compte
 (
     idCompte int,
     idProjet int,
+    estChefProjet int,
 
     PRIMARY KEY (idCompte, idProjet),
 

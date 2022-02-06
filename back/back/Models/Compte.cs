@@ -7,8 +7,8 @@ namespace back.Models
     {
         public Compte()
         {
+            ProjetComptes = new HashSet<ProjetCompte>();
             Tickets = new HashSet<Ticket>();
-            IdProjets = new HashSet<Projet>();
         }
 
         public int Id { get; set; }
@@ -16,13 +16,12 @@ namespace back.Models
         public string Prenom { get; set; } = null!;
         public string Mail { get; set; } = null!;
         public string Mdp { get; set; } = null!;
-        public int IdEntreprise { get; set; }
+        public string Tel { get; set; } = null!;
+        public string NomEntreprise { get; set; } = null!;
         public int IdTypeCompte { get; set; }
 
-        public virtual Entreprise IdEntrepriseNavigation { get; set; } = null!;
         public virtual TypeCompte IdTypeCompteNavigation { get; set; } = null!;
+        public virtual ICollection<ProjetCompte> ProjetComptes { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
-
-        public virtual ICollection<Projet> IdProjets { get; set; }
     }
 }

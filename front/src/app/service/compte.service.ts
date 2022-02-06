@@ -12,8 +12,13 @@ export class CompteService
 
   constructor(private http: HttpClient) { }
 
-  ListerCompte(): Observable<Compte[]>
+  Lister(): Observable<Compte[]>
   {
     return this.http.get<Compte[]>(`${environment.URL_API}/compte/lister`);
+  }
+
+  Ajouter(_info: Compte): Observable<number>
+  {
+    return this.http.post<number>(`${environment.URL_API}/compte/ajouter`, _info);
   }
 }

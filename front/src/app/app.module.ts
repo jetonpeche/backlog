@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
-//#region 
+//#region mat
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -21,9 +21,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 //#endregion
 
-//#region 
+//#region services
 import { OutilService } from './service/outil.service';
 import { ConnexionService } from './service/connexion.service';
 import { CompteService } from './service/compte.service';
@@ -34,6 +36,7 @@ import { AccueilComponent } from './component/admin/accueil/accueil.component';
 import { GestionCompteComponent } from './component/admin/gestion-compte/gestion-compte.component';
 import { AppComponent } from './app.component';
 import { ConnexionComponent } from './component/connexion/connexion.component';
+import { ModalAjouterCompteComponent } from './modal/admin/modal-ajouter-compte/modal-ajouter-compte.component';
 //#endregion
 
 @NgModule({
@@ -41,7 +44,8 @@ import { ConnexionComponent } from './component/connexion/connexion.component';
     AppComponent,
     ConnexionComponent,
     AccueilComponent,
-    GestionCompteComponent
+    GestionCompteComponent,
+    ModalAjouterCompteComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,9 @@ import { ConnexionComponent } from './component/connexion/connexion.component';
     MatTabsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [OutilService, ConnexionService, CompteService],
   bootstrap: [AppComponent]

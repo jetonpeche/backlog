@@ -6,7 +6,8 @@ public class Import_Compte
     public string Prenom { get; set; } = null!;
     public string Mail { get; set; } = null!;
     public string Mdp { get; set; } = null!;
-    public int IdEntreprise { get; set; }
+    public string NomEntreprise { get; set; } = null!;
+    public string Tel { get; set; } = null!;
     public int IdTypeCompte { get; set; }
 }
 
