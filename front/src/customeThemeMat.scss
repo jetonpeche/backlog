@@ -14,5 +14,4 @@ $my-theme: mat.define-dark-theme((
 ));
 
 // Apply the dark theme by default
-@include mat.core-theme($my-theme);
-@include mat.button-theme($my-theme);
+@include mat.all-component-themes($my-theme);

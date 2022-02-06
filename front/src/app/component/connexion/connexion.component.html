@@ -1,16 +1,23 @@
-<h1>Connexion</h1>
+<div class="container">
+  <mat-card class="card">
+    <h1 class="titre">Connexion</h1>
 
-<form #e="ngForm">
-    <mat-form-field class="full-width" appearance="outline">
+    <form #e="ngForm">
+
+      <!-- mail -->
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Mail</mat-label>
-        <input matInput name="Login" type="text" ngModel>
+        <input class="input" matInput name="Login" type="text" ngModel>
       </mat-form-field>
 
+      <!-- mdp -->
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Mot de passe</mat-label>
-        <input matInput name="Mdp" type="password" ngModel>
+        <input class="input" matInput name="Mdp" [type]="voirMdp ? 'text' : 'password'" ngModel>
+        <mat-icon class="iconClick" matSuffix (click)="VoirCacherMdp()">{{ voirMdp ? 'visibility': 'visibility_off'}}</mat-icon>
       </mat-form-field>
 
       <button mat-raised-button color="primary" (click)="SeConnecter(e)">Se connecter</button>
-</form>
-
+    </form>
+  </mat-card>
+</div>

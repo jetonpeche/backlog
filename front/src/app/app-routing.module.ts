@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ConnexionComponent } from './component/connexion/connexion.component';
 
 const routes: Routes = [
-  { path: "connexion", component: ConnexionComponent }
+  { path: "", component: ConnexionComponent }
 ];
 
 @NgModule({
