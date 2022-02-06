@@ -5,12 +5,18 @@ $my-primary: mat.define-palette(mat.$indigo-palette);
 $my-accent: mat.define-palette(mat.$amber-palette);
 $my-warn: mat.define-palette(mat.$red-palette);
 
+$kids-typography: mat.define-typography-config(
+  $font-family: 'Raleway',
+);
+
 $my-theme: mat.define-dark-theme((
  color: (
    primary: $my-primary,
    accent: $my-accent,
    warn: $my-warn
- )
+ ),
+
+ typography: $kids-typography
 ));
 
 // Apply the dark theme by default

@@ -1,25 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #303030;}
+body { margin: 0; background-color: #303030;}
 
 .full-width
 {
     width: 100%;
+}
 
-    .input
-    {
-        color: whitesmoke;
-    }
+.input
+{
+    color: whitesmoke;
+    font-size: 1em;
 }
 
 .titre
 {
     text-align: center;
     color: whitesmoke;
+    font-family: 'Raleway';
+}
+
+.margeTop
+{
+    margin-top: 2%;
 }
 
 .iconClick
 {
     cursor: pointer;
+}
+
+.th
+{
+    font-size: 1.05em;
+    font-weight: bold;
+    color: whitesmoke;
+}
+
+.td
+{
+    color: whitesmoke;
+    font-size: 1em;
+    letter-spacing: .5px;
 }
