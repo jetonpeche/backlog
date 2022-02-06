@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TypeCompte } from 'src/app/classes/TypeCompte';
@@ -14,6 +14,8 @@ import { TypeCompteService } from 'src/app/service/type-compte.service';
 export class ModalAjouterCompteComponent implements OnInit 
 {
   listeTypeCompte: TypeCompte[] = [];
+  voirMdp: boolean;
+  voirMdpComfirmer: boolean;
 
   constructor(private typeCompteServ: TypeCompteService, private compteServ: CompteService, private outilService: OutilService, private diagRef: MatDialogRef<ModalAjouterCompteComponent>) { }
 
@@ -24,8 +26,17 @@ export class ModalAjouterCompteComponent implements OnInit
 
   Ajouter(_form: NgForm): void
   {
-    // creer un mdp
-    _form.value.Mdp = `${_form.value.Nom}.${_form.value.Prenom}`;
+    // si compte client
+    if(!_form.value?.Mdp)
+    {
+      // creer un mdp
+      _form.value.Mdp = `${_form.value.Nom}.${_form.value.Prenom}`;
+    }
+    else
+    {
+      if(_form.value.Mdp != _form.value.MdpComfirmer)
+        return;
+    }   
 
     this.compteServ.Ajouter(_form.value).subscribe({
       next: (id: number) =>
@@ -52,8 +63,22 @@ export class ModalAjouterCompteComponent implements OnInit
       {
         this.outilService.ToastErreurHttp();
       }
-    })
+    });
+  }
 
+  VoirCacherMdp(): void
+  {
+    this.voirMdp = ! this.voirMdp;
+  }
+
+  MdpIdentique(_mdp, _mdpConfirmer): boolean
+  {
+    return  _mdp == _mdpConfirmer;
+  }
+
+  VoirCacherMdpConfirmer(): void
+  {
+    this.voirMdpComfirmer = ! this.voirMdpComfirmer;
   }
 
   private ListerTypeRole(): void

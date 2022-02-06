@@ -51,14 +51,14 @@ export class GestionCompteComponent implements OnInit, AfterViewInit
 
     DIALOG_REF.afterClosed().subscribe({
       next: (retour) =>
-      {      
+      {
         if(retour)
         {       
           this.listeCompte.data.push(retour);
           this.listeCompte.data = this.listeCompte.data;
         }
       }
-    })
+    });
   }
 
   private ListerCompte(): void

@@ -48,13 +48,39 @@
         <!-- role -->
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Role</mat-label>
-            <mat-select name="IdTypeCompte" ngModel required>
+            <mat-select #selectRole name="IdTypeCompte" ngModel required>
                 <mat-option *ngFor="let element of listeTypeCompte" [value]="element.Id">
                     {{ element.Nom }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
 
+        <!-- champs pour les admins et dev -->
+        <div *ngIf="selectRole.value == 1 || selectRole.value == 3">
+            <!-- mdp -->
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Mot de passe</mat-label>
+                <input #inputMdp matInput name="Mdp" minlength="8" [type]="voirMdp ? 'text' : 'password'" ngModel required>
+                <mat-icon class="iconClick" matSuffix (click)="VoirCacherMdp()">{{ voirMdp ? 'visibility': 'visibility_off'}}</mat-icon>
+            </mat-form-field>
+
+            <!-- comfirme mdp -->
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Confirmer le mot de passe</mat-label>
+                <input #inputMdpComfirmer matInput name="MdpComfirmer" minlength="8"[type]="voirMdpComfirmer ? 'text' : 'password'" ngModel required>
+                <mat-icon class="iconClick" matSuffix (click)="VoirCacherMdpConfirmer()">{{ voirMdpComfirmer ? 'visibility': 'visibility_off'}}</mat-icon>
+            </mat-form-field>
+
+            <p *ngIf="!MdpIdentique(inputMdp.value, inputMdpComfirmer.value) && inputMdp.value.length >= 8" class="invalide">
+                <mat-icon>highlight_off</mat-icon>
+                Les deux mots de passe ne correspondent pas
+            </p>
+
+            <p *ngIf="MdpIdentique(inputMdp.value, inputMdpComfirmer.value) && inputMdp.value.length >= 8" class="valide">
+                <mat-icon>check_circle</mat-icon>
+                Les deux mots de passe correspondent
+            </p>
+        </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
