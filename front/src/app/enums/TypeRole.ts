@@ -1,6 +1,6 @@
 export enum TypeRole
 {
-    CLIENT = "client",
-    DEVELOPPEUR = "developpeur",
+    CLIENT = "Client",
+    DEVELOPPEUR = "Développeur",
     ADMIN = "Admin"
 }

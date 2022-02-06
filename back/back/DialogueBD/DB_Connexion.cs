@@ -6,14 +6,20 @@ public static class DB_Connexion
 {
     public static backlogContext context;
 
-    public static bool Connexion(string _login, string _mdp)
+    /// <summary>
+    /// Verifie que les logs sont corrects
+    /// </summary>
+    /// <param name="_login"></param>
+    /// <param name="_mdp"></param>
+    /// <returns>0 si rien trouvé sinon ID du compte</returns>
+    public static int Connexion(string _login, string _mdp)
     {
-        var compte = context.Comptes.Where(c => c.Mail == _login).Select(c => new { c.Mdp, c.Mail }).FirstOrDefault();
+        var compte = context.Comptes.Where(c => c.Mail == _login).Select(c => new { c.Mdp, c.Mail, c.Id }).FirstOrDefault();
 
         if(compte == null || !BC.Verify(_mdp, compte.Mdp))
-            return false;
+            return 0;
 
-        return true;
+        return compte.Id;
     }
 }
 

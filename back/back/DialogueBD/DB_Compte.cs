@@ -22,6 +22,24 @@ public static class DB_Compte
         return liste;
     }
 
+    public static dynamic Compte(int _id)
+    {
+        dynamic info = (from compte in context.Comptes
+                     where compte.Id == _id
+                     select new
+                     {
+                         compte.Id,
+                         compte.Nom,
+                         compte.Prenom,
+                         compte.Mail,
+
+                         NomEntreprise = compte.IdEntrepriseNavigation.Nom,
+                         TypeCompte = compte.IdTypeCompteNavigation.Nom,
+                     }).First();
+
+        return info;
+    }
+
     public static int CreerCompte(Compte _compte)
     {
         context.Comptes.Add(_compte);

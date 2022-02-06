@@ -19,11 +19,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatListModule} from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { AccueilComponent } from './component/admin/accueil/accueil.component';
+import { GestionCompteComponent } from './component/admin/gestion-compte/gestion-compte.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    AccueilComponent,
+    GestionCompteComponent
   ],
   imports: [
     BrowserModule,

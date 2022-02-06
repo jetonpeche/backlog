@@ -51,13 +51,13 @@
             {
                 _type.Nom = Outil.ProtectionXSS(_type.Nom);
 
-                var liste = DB_TypeCompte.Ajouter(_type);
+                DB_TypeCompte.Modifier(_type);
 
                 return JsonConvert.SerializeObject(true);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return JsonConvert.SerializeObject(false);
+                return JsonConvert.SerializeObject(e);
             }
         }
     }
