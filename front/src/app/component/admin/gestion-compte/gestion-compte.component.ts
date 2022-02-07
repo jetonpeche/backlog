@@ -5,6 +5,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Compte } from 'src/app/classes/Compte';
 import { ModalAjouterCompteComponent } from 'src/app/modal/admin/modal-ajouter-compte/modal-ajouter-compte.component';
+import { ModalModifierCompteComponent } from 'src/app/modal/admin/modal-modifier-compte/modal-modifier-compte.component';
 import { CompteService } from 'src/app/service/compte.service';
 import { OutilService } from 'src/app/service/outil.service';
 
@@ -59,6 +60,27 @@ export class GestionCompteComponent implements OnInit, AfterViewInit
         }
       }
     });
+  }
+
+  OuvrirModalModifierCompte(_compte: Compte): void
+  { 
+    const DIALOG_REF = this.dialog.open(ModalModifierCompteComponent, { disableClose: true, data: { compte: _compte }});
+
+    DIALOG_REF.beforeClosed().subscribe({
+      next: (retour: Compte) =>
+      { 
+        if(DIALOG_REF.componentInstance.estModifier)
+        {
+          _compte.Nom = retour.Nom;
+          _compte.NomEntreprise = retour.NomEntreprise;
+          _compte.Prenom = retour.Prenom;
+          _compte.Mail = retour.Mail;
+          _compte.Tel = retour.Tel;
+          _compte.TypeCompte = retour.TypeCompte;
+          _compte.IdTypeCompte = retour.IdTypeCompte;
+        }
+      }
+    })
   }
 
   private ListerCompte(): void

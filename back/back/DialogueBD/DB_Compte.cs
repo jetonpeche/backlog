@@ -16,7 +16,7 @@ public static class DB_Compte
                         compte.Mail,
                         compte.Tel,
                         compte.NomEntreprise,
-
+                        compte.IdTypeCompte,
                         TypeCompte = compte.IdTypeCompteNavigation.Nom,
                     };
 
@@ -35,6 +35,7 @@ public static class DB_Compte
                          compte.Mail,
                          compte.Tel,
                          compte.NomEntreprise,
+                         compte.IdTypeCompte,
                          TypeCompte = compte.IdTypeCompteNavigation.Nom,
                      }).First();
 

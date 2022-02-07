@@ -29,6 +29,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { OutilService } from './service/outil.service';
 import { ConnexionService } from './service/connexion.service';
 import { CompteService } from './service/compte.service';
+import { TypeCompteService } from './service/type-compte.service';
 //#endregion
 
 //#region 
@@ -37,6 +38,7 @@ import { GestionCompteComponent } from './component/admin/gestion-compte/gestion
 import { AppComponent } from './app.component';
 import { ConnexionComponent } from './component/connexion/connexion.component';
 import { ModalAjouterCompteComponent } from './modal/admin/modal-ajouter-compte/modal-ajouter-compte.component';
+import { ModalModifierCompteComponent } from './modal/admin/modal-modifier-compte/modal-modifier-compte.component';
 //#endregion
 
 @NgModule({
@@ -45,7 +47,8 @@ import { ModalAjouterCompteComponent } from './modal/admin/modal-ajouter-compte/
     ConnexionComponent,
     AccueilComponent,
     GestionCompteComponent,
-    ModalAjouterCompteComponent
+    ModalAjouterCompteComponent,
+    ModalModifierCompteComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import { ModalAjouterCompteComponent } from './modal/admin/modal-ajouter-compte/
     MatDialogModule,
     MatSelectModule
   ],
-  providers: [OutilService, ConnexionService, CompteService],
+  entryComponents: [ModalAjouterCompteComponent, ModalModifierCompteComponent],
+  providers: [OutilService, ConnexionService, CompteService, TypeCompteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

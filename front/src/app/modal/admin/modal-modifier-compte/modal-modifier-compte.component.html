@@ -1,0 +1,64 @@
+<h1 mat-dialog-title>Ajouter compte</h1>
+<mat-dialog-content class="mat-typography">
+    <form #e="ngForm">
+
+        <input type="hidden" name="Id" [ngModel]="data.compte.Id">
+
+        <div class="row">
+            <!-- nom -->
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nom</mat-label>
+                    <input matInput name="Nom" type="text" maxlength="255" [ngModel]="data.compte.Nom" required>
+                </mat-form-field>
+            </div>
+
+            <!-- prenom -->
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Prenom</mat-label>
+                    <input matInput name="Prenom" type="text" maxlength="255" [ngModel]="data.compte.Prenom" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- mail -->
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Mail</mat-label>
+                    <input matInput name="Mail" type="email" maxlength="300" [ngModel]="data.compte.Mail" required>
+                </mat-form-field>
+            </div>
+
+            <!-- telephone -->
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Telephone</mat-label>
+                    <input matInput name="Tel" type="tel" maxlength="20" [ngModel]="data.compte.Tel" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- nom entreprise -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Nom de l'entreprise</mat-label>
+            <input matInput name="NomEntreprise" type="text" [ngModel]="data.compte.NomEntreprise" required>
+        </mat-form-field>
+
+        <!-- role -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Role</mat-label>
+            <mat-select #selectRole name="IdTypeCompte" [ngModel]="data.compte.IdTypeCompte" required>
+                <mat-option *ngFor="let element of listeTypeCompte" [value]="element.Id">
+                    {{ element.Nom }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="warn" mat-dialog-close>Fermer</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="Modifier(e)">Modifier</button>
+</mat-dialog-actions>

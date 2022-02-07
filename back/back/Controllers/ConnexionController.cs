@@ -30,9 +30,9 @@ public class ConnexionController : ControllerBase
                 return JsonConvert.SerializeObject(false);
             }
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            return JsonConvert.SerializeObject(false);
+            return JsonConvert.SerializeObject(e);
         }
 
     }
