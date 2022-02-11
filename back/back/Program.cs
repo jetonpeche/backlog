@@ -6,12 +6,14 @@ global using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using back.signal;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
+builder.Services.AddSignalR(option => option.EnableDetailedErrors = true);
 
 // connection a la base de donnée
 builder.Services.AddDbContext<backlogContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("defaut")));
@@ -47,6 +49,7 @@ app.UseCors("CORS");
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<HubSignal>("/toastr");
 
 app.Run();
 

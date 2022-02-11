@@ -21,4 +21,9 @@ export class CompteService
   {
     return this.http.post<number>(`${environment.URL_API}/compte/ajouter`, _info);
   }
+
+  Modifier(_info: Compte): Observable<boolean>
+  {
+    return this.http.put<boolean>(`${environment.URL_API}/compte/modifier/${_info.Id}`, _info);
+  }
 }

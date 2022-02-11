@@ -26,7 +26,7 @@ public class CompteController : Controller
         }
     }
 
-    [HttpPost("Ajouter")]
+    [HttpPost("ajouter")]
     public string Ajouter([FromBody] Import_Compte _compte)
     {
         try
@@ -52,7 +52,7 @@ public class CompteController : Controller
         }
     }
 
-    [HttpPut("Modifier/{id}")]
+    [HttpPut("modifier/{id}")]
     public string Modifier([FromBody] Import_Compte _compte, int id)
     {
         try
