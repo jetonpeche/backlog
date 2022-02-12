@@ -53,6 +53,8 @@ public static class DB_Compte
 
     public static void Modifier(Compte _compte)
     {
+        _compte.Mdp = context.Comptes.Where(c => c.Id == _compte.Id).Select(c => c.Mdp).First();
+
         context.Comptes.Update(_compte);
         context.SaveChanges();
     }

@@ -6,6 +6,7 @@ namespace back.Controllers;
 [ApiController]
 public class CompteController : Controller
 {
+
     public CompteController(backlogContext _context)
     {
         DB_Compte.context = _context;
@@ -26,6 +27,12 @@ public class CompteController : Controller
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_compte"></param>
+    /// <response code="200">id du compte ajouter</response>
+    /// <response code="400">0</response>
     [HttpPost("ajouter")]
     public string Ajouter([FromBody] Import_Compte _compte)
     {
@@ -52,8 +59,16 @@ public class CompteController : Controller
         }
     }
 
+    /// <summary>
+    /// Modifier le compte
+    /// </summary>
+    /// <param name="_compte"></param>
+    /// <param name="id"></param>
+    /// <returns>Renvoie true ou false</returns>
+    /// <response code="200">false</response>
+    /// <response code="400">false</response>
     [HttpPut("modifier/{id}")]
-    public string Modifier([FromBody] Import_Compte _compte, int id)
+    public string Modifier([FromBody] Import_Compte _compte, [FromRoute] int id)
     {
         try
         {
@@ -64,7 +79,7 @@ public class CompteController : Controller
                 Prenom = Outil.ProtectionXSS(_compte.Prenom),
                 Mail = Outil.ProtectionXSS(_compte.Mail),
                 NomEntreprise = Outil.ProtectionXSS(_compte.NomEntreprise),
-                Tel= Outil.ProtectionXSS(_compte.Tel),
+                Tel = Outil.ProtectionXSS(_compte.Tel),
                 IdTypeCompte = _compte.IdTypeCompte
             };
 

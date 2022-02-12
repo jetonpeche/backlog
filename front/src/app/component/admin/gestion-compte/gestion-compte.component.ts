@@ -64,13 +64,13 @@ export class GestionCompteComponent implements OnInit, AfterViewInit
 
   OuvrirModalModifierCompte(_compte: Compte): void
   { 
-    const DIALOG_REF = this.dialog.open(ModalModifierCompteComponent, { disableClose: true, data: { compte: _compte }});
+    const DIALOG_REF = this.dialog.open(ModalModifierCompteComponent, { data: { compte: _compte }});
 
     DIALOG_REF.beforeClosed().subscribe({
       next: (retour: Compte) =>
-      { 
+      {       
         if(DIALOG_REF.componentInstance.estModifier)
-        {
+        {        
           _compte.Nom = retour.Nom;
           _compte.NomEntreprise = retour.NomEntreprise;
           _compte.Prenom = retour.Prenom;
