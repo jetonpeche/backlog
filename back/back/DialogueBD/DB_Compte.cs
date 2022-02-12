@@ -23,6 +23,26 @@ public static class DB_Compte
         return liste;
     }
 
+    public static IQueryable ListerCompteDev()
+    {
+        var liste = from compte in context.Comptes
+                    where compte.IdTypeCompteNavigation.Nom == "Développeur"
+                    orderby compte.Nom
+                    select new
+                    {
+                        compte.Id,
+                        compte.Nom,
+                        compte.Prenom,
+                        compte.Mail,
+                        compte.Tel,
+                        compte.NomEntreprise,
+                        compte.IdTypeCompte,
+                        TypeCompte = compte.IdTypeCompteNavigation.Nom,
+                    };
+
+        return liste;
+    }
+
     public static dynamic Compte(int _id)
     {
         dynamic info = (from compte in context.Comptes

@@ -1,7 +1,6 @@
 DROP TABLE Ticket;
 DROP TABLE Projet_Compte;
 DROP TABLE Compte;
-DROP TABLE Entreprise;
 DROP TABLE Projet;
 DROP TABLE EtatTicket;
 DROP TABLE TypeCompte;
@@ -28,7 +27,8 @@ CREATE TABLE EtatTicket
 CREATE TABLE Projet
 (
     id int PRIMARY KEY IDENTITY (1,1),
-    nom varchar(255) NOT NULL
+    nom varchar(255) NOT NULL,
+    description varchar(1500) NOT NULL
 );
 
 CREATE TABLE Compte
@@ -76,3 +76,10 @@ CREATE TABLE Ticket
     FOREIGN KEY (idTypeRetour) REFERENCES TypeRetour(id),
     FOREIGN KEY (idEtatTicket) REFERENCES EtatTicket(id)
 );
+
+SET IDENTITY_INSERT utilisateur ON; 
+
+INSERT INTO TypeCompte (id, nom) VALUES (1, 'Admin'), (2, 'Développeur'), (3, 'Client');
+
+
+SET IDENTITY_INSERT utilisateur OFF; 

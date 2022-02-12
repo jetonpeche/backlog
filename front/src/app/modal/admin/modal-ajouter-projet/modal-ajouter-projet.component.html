@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Ajouter un nouveau projet</h1>
+<mat-dialog-content class="mat-typography">
+    <form #e="ngForm">
+
+        <!-- nom -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Nom du projet</mat-label>
+            <input #inputNomProjet matInput name="Nom" type="text" maxlength="255" ngModel required>
+        </mat-form-field>
+
+        <!-- description -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Textarea</mat-label>
+            <textarea #textArea rows="12" matInput name="Description" maxlength="1500" ngModel required></textarea>
+            <mat-hint align="end">{{textArea.value?.length || 0}}/1500</mat-hint>
+        </mat-form-field>
+
+        <!-- liste des comptes -->
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Personnes à ajouter au projet: {{ inputNomProjet.value }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-selection-list color="primary" name="listeCompte" ngModel required>
+                    <mat-list-option [value]="+element.Id" *ngFor="let element of listeCompte">
+                        {{ element.Nom }} {{ element.Prenom }}
+                    </mat-list-option>
+                </mat-selection-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="warn" mat-dialog-close>Fermer</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="Ajouter(e)">Ajouter</button>
+</mat-dialog-actions>

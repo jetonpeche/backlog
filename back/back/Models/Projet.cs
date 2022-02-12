@@ -13,6 +13,7 @@ namespace back.Models
 
         public int Id { get; set; }
         public string Nom { get; set; } = null!;
+        public string Description { get; set; } = null!;
 
         public virtual ICollection<ProjetCompte> ProjetComptes { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }

@@ -1,5 +1,7 @@
 ﻿namespace back.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class EtatTicketController : Controller
     {
         public EtatTicketController(backlogContext _context)

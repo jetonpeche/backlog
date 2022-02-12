@@ -17,6 +17,11 @@ export class CompteService
     return this.http.get<Compte[]>(`${environment.URL_API}/compte/lister`);
   }
 
+  ListerDev(): Observable<Compte[]>
+  {
+    return this.http.get<Compte[]>(`${environment.URL_API}/compte/listerDev`);
+  }
+
   Ajouter(_info: Compte): Observable<number>
   {
     return this.http.post<number>(`${environment.URL_API}/compte/ajouter`, _info);

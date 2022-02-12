@@ -27,6 +27,21 @@ public class CompteController : Controller
         }
     }
 
+    [HttpGet("listerDev")]
+    public string listerDev()
+    {
+        try
+        {
+            var liste = DB_Compte.ListerCompteDev();
+
+            return JsonConvert.SerializeObject(liste);
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(e);
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>

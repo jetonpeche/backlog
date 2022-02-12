@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TypeCompte } from 'src/app/classes/TypeCompte';
+import { TypeRole } from 'src/app/enums/TypeRole';
 import { CompteService } from 'src/app/service/compte.service';
 import { OutilService } from 'src/app/service/outil.service';
 import { TypeCompteService } from 'src/app/service/type-compte.service';
@@ -71,9 +72,19 @@ export class ModalAjouterCompteComponent implements OnInit
     this.voirMdp = ! this.voirMdp;
   }
 
-  MdpIdentique(_mdp, _mdpConfirmer): boolean
+  MdpIdentique(_mdp: string, _mdpConfirmer: string): boolean
   {
     return  _mdp == _mdpConfirmer;
+  }
+
+  PeutCreerSonMdp(_id: number): boolean
+  { 
+    if(!_id)
+      return false;
+
+    const NOM_ID_SELECTIONNER = this.listeTypeCompte.find(p => p.Id == _id).Nom;
+
+    return NOM_ID_SELECTIONNER == TypeRole.ADMIN;
   }
 
   VoirCacherMdpConfirmer(): void

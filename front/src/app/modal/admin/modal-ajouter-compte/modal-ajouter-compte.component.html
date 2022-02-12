@@ -55,8 +55,9 @@
             </mat-select>
         </mat-form-field>
 
-        <!-- champs pour les admins et dev -->
-        <div *ngIf="selectRole.value == 1 || selectRole.value == 3">
+        <!-- champs pour les admins -->
+        <div *ngIf="PeutCreerSonMdp(selectRole.value)">
+
             <!-- mdp -->
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Mot de passe</mat-label>

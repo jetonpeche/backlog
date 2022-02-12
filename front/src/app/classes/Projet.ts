@@ -1,5 +1,6 @@
-export type Login =
+export type Projet =
 {
-    Login: string,
-    Mdp: string
+    Id: number,
+    Nom: string,
+    Description: string
 }
