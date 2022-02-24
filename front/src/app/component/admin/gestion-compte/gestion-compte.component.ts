@@ -3,11 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { Compte } from 'src/app/classes/Compte';
 import { ModalAjouterCompteComponent } from 'src/app/modal/admin/modal-ajouter-compte/modal-ajouter-compte.component';
 import { ModalModifierCompteComponent } from 'src/app/modal/admin/modal-modifier-compte/modal-modifier-compte.component';
 import { CompteService } from 'src/app/service/compte.service';
 import { OutilService } from 'src/app/service/outil.service';
+import { CompteClient } from 'src/app/types/CompteClient';
+import { TypeRole } from 'src/app/enums/TypeRole';
 
 @Component({
   selector: 'app-gestion-compte',
@@ -20,7 +21,7 @@ export class GestionCompteComponent implements OnInit, AfterViewInit
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['Nom', 'Prenom', 'Mail', 'NomEntreprise', 'TypeCompte', 'projet', 'modifier'];
-  listeCompte: MatTableDataSource<Compte>;
+  listeCompte: MatTableDataSource<CompteClient>;
 
   constructor(private compteServ: CompteService, private outilServ: OutilService, private dialog: MatDialog) { }
 
@@ -62,20 +63,27 @@ export class GestionCompteComponent implements OnInit, AfterViewInit
     });
   }
 
-  OuvrirModalModifierCompte(_compte: Compte): void
+  OuvrirModalModifierCompte(_compte: CompteClient): void
   { 
     const DIALOG_REF = this.dialog.open(ModalModifierCompteComponent, { data: { compte: _compte }});
 
     DIALOG_REF.beforeClosed().subscribe({
-      next: (retour: Compte) =>
+      next: (retour: CompteClient) =>
       {       
         if(DIALOG_REF.componentInstance.estModifier)
         {        
           _compte.Nom = retour.Nom;
-          _compte.NomEntreprise = retour.NomEntreprise;
+          _compte.NomEntreprise = retour?.NomEntreprise ?? "";
+          _compte.Adresse = retour?.Adresse ?? "";
           _compte.Prenom = retour.Prenom;
           _compte.Mail = retour.Mail;
           _compte.Tel = retour.Tel;
+
+          if(retour.TypeCompte == TypeRole.CLIENT)
+          {
+
+          }
+
           _compte.TypeCompte = retour.TypeCompte;
           _compte.IdTypeCompte = retour.IdTypeCompte;
         }
@@ -86,7 +94,7 @@ export class GestionCompteComponent implements OnInit, AfterViewInit
   private ListerCompte(): void
   {
     this.compteServ.Lister().subscribe({
-      next: (liste: Compte[]) =>
+      next: (liste: CompteClient[]) =>
       {
         this.listeCompte.data = liste;
       },

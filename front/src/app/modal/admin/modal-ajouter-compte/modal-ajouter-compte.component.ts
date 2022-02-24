@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { TypeCompte } from 'src/app/classes/TypeCompte';
-import { TypeRole } from 'src/app/enums/TypeRole';
+import { TypeCompte } from 'src/app/types/TypeCompte';
 import { CompteService } from 'src/app/service/compte.service';
 import { OutilService } from 'src/app/service/outil.service';
-import { TypeCompteService } from 'src/app/service/type-compte.service';
+import { Variable } from 'src/app/classeStatic/Variable';
 
 @Component({
   selector: 'app-modal-ajouter-compte',
@@ -18,15 +17,25 @@ export class ModalAjouterCompteComponent implements OnInit
   voirMdp: boolean;
   voirMdpComfirmer: boolean;
 
-  constructor(private typeCompteServ: TypeCompteService, private compteServ: CompteService, private outilService: OutilService, private diagRef: MatDialogRef<ModalAjouterCompteComponent>) { }
+  constructor(
+    private compteServ: CompteService, 
+    private outilService: OutilService, 
+    private diagRef: MatDialogRef<ModalAjouterCompteComponent>) { }
 
   ngOnInit(): void 
   {
-    this.ListerTypeRole();
+    this.listeTypeCompte = Variable.listeTypeCompte;
   }
 
   Ajouter(_form: NgForm): void
   {
+    if(_form.invalid)
+    {
+      this.outilService.ToastErreur("Veuillez remplir tous les champs");
+      return;
+    }
+
+
     // si compte client
     if(!_form.value?.Mdp)
     {
@@ -79,30 +88,16 @@ export class ModalAjouterCompteComponent implements OnInit
 
   PeutCreerSonMdp(_id: number): boolean
   { 
-    if(!_id)
-      return false;
+    return this.outilService.EstRoleAdmin(_id);
+  }
 
-    const NOM_ID_SELECTIONNER = this.listeTypeCompte.find(p => p.Id == _id).Nom;
-
-    return NOM_ID_SELECTIONNER == TypeRole.ADMIN;
+  EstRoleClient(_id): boolean
+  {
+    return this.outilService.EstRoleClient(_id);
   }
 
   VoirCacherMdpConfirmer(): void
   {
     this.voirMdpComfirmer = ! this.voirMdpComfirmer;
-  }
-
-  private ListerTypeRole(): void
-  {
-    this.typeCompteServ.Lister().subscribe({
-      next: (liste: TypeCompte[]) =>
-      {
-        this.listeTypeCompte = liste;
-      },
-      error: () =>
-      {
-        this.outilService.ToastErreurHttp();
-      }
-    })
   }
 }

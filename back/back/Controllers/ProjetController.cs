@@ -42,7 +42,8 @@ namespace back.Controllers
                 Projet projet = new()
                 {
                     Nom = Outil.ProtectionXSS(_projet.Nom),
-                    Description = Outil.ProtectionXSS(_projet.Description)
+                    Description = Outil.ProtectionXSS(_projet.Description),
+                    IdCompteClient = _projet.IdCompteClient
                 };
 
                 int id = DB_Projet.Ajouter(projet);

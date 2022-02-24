@@ -15,6 +15,7 @@ public static class DB_Compte
                         compte.Prenom,
                         compte.Mail,
                         compte.Tel,
+                        compte.Adresse,
                         compte.NomEntreprise,
                         compte.IdTypeCompte,
                         TypeCompte = compte.IdTypeCompteNavigation.Nom,
@@ -35,6 +36,26 @@ public static class DB_Compte
                         compte.Prenom,
                         compte.Mail,
                         compte.Tel,
+                        compte.IdTypeCompte,
+                        TypeCompte = compte.IdTypeCompteNavigation.Nom,
+                    };
+
+        return liste;
+    }
+
+    public static IQueryable ListerCompteClient()
+    {
+        var liste = from compte in context.Comptes
+                    where compte.IdTypeCompteNavigation.Nom == "Client"
+                    orderby compte.Nom
+                    select new
+                    {
+                        compte.Id,
+                        compte.Nom,
+                        compte.Prenom,
+                        compte.Mail,
+                        compte.Tel,
+                        compte.Adresse,
                         compte.NomEntreprise,
                         compte.IdTypeCompte,
                         TypeCompte = compte.IdTypeCompteNavigation.Nom,

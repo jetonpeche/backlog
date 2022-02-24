@@ -4,10 +4,12 @@ import { AccueilComponent } from './component/admin/accueil/accueil.component';
 import { GestionCompteComponent } from './component/admin/gestion-compte/gestion-compte.component';
 import { GestionProjetComponent } from './component/admin/gestion-projet/gestion-projet.component';
 import { ConnexionComponent } from './component/connexion/connexion.component';
+import { AccueilDevComponent } from './component/dev/accueil/accueil-dev.component';
 
 const routes: Routes = [
   { path: "", component: ConnexionComponent },
   { path: "acceuilAdmin", component: AccueilComponent },
+  { path: "acceuilDev", component: AccueilDevComponent },
   { path: "gestion-compte", component: GestionCompteComponent },
   { path: "gestion-projet", component: GestionProjetComponent }
 ];

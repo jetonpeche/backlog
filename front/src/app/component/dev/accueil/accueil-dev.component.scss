@@ -1,0 +1,23 @@
+.example-card 
+{
+  margin: 10px;
+  height: 320px;
+  width: 300px;
+  cursor: pointer;
+}
+
+.flexCard
+{
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+}
+
+.icon
+{
+  position: relative;
+  font-size: 150px;
+  top: 0%;
+  left: 25%;
+  transform: translate(-50%, -50%); 
+}

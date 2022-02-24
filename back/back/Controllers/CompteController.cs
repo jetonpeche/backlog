@@ -28,7 +28,7 @@ public class CompteController : Controller
     }
 
     [HttpGet("listerDev")]
-    public string listerDev()
+    public string ListerDev()
     {
         try
         {
@@ -38,6 +38,22 @@ public class CompteController : Controller
         }
         catch (Exception e)
         {
+            return JsonConvert.SerializeObject(e);
+        }
+    }
+
+    [HttpGet("listerClient")]
+    public string ListerClient()
+    {
+        try
+        {
+            var liste = DB_Compte.ListerCompteClient();
+
+            return JsonConvert.SerializeObject(liste);
+        }
+        catch (Exception e)
+        {
+
             return JsonConvert.SerializeObject(e);
         }
     }
@@ -59,7 +75,8 @@ public class CompteController : Controller
                 Prenom = Outil.ProtectionXSS(_compte.Prenom),
                 Mail = Outil.ProtectionXSS(_compte.Mail),
                 Mdp = Outil.ProtectionXSS(BC.HashPassword(_compte.Mdp)),
-                NomEntreprise = Outil.ProtectionXSS(_compte.NomEntreprise),
+                NomEntreprise = Outil.ProtectionXSS(_compte?.NomEntreprise),
+                Adresse = Outil.ProtectionXSS(_compte?.Adresse),
                 Tel = Outil.ProtectionXSS(_compte.Tel),
                 IdTypeCompte = _compte.IdTypeCompte
             };
@@ -93,7 +110,8 @@ public class CompteController : Controller
                 Nom = Outil.ProtectionXSS(_compte.Nom),
                 Prenom = Outil.ProtectionXSS(_compte.Prenom),
                 Mail = Outil.ProtectionXSS(_compte.Mail),
-                NomEntreprise = Outil.ProtectionXSS(_compte.NomEntreprise),
+                NomEntreprise = Outil.ProtectionXSS(_compte?.NomEntreprise),
+                Adresse = Outil.ProtectionXSS(_compte?.Adresse),
                 Tel = Outil.ProtectionXSS(_compte.Tel),
                 IdTypeCompte = _compte.IdTypeCompte
             };

@@ -8,6 +8,5 @@ export type Compte =
     Prenom: string,
     Mail: string,
     Tel: string,
-    NomEntreprise: string,
     TypeCompte: TypeRole
 }

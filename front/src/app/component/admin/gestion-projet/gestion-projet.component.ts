@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { Projet } from 'src/app/classes/Projet';
+import { Projet } from 'src/app/types/Projet';
 import { ModalAjouterProjetComponent } from 'src/app/modal/admin/modal-ajouter-projet/modal-ajouter-projet.component';
 import { OutilService } from 'src/app/service/outil.service';
 import { ProjetService } from 'src/app/service/projet.service';
@@ -47,7 +47,7 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
 
   AfficherDescriptionCouper(_texte: string): string
   {
-    return _texte.split(" ", 20).join(" ");
+    return _texte.split(" ", 15).join(" ");
   }
 
   OuvrirModalCreerProjet(): void

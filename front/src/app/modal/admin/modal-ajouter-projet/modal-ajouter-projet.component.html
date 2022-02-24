@@ -15,7 +15,23 @@
             <mat-hint align="end">{{textArea.value?.length || 0}}/1500</mat-hint>
         </mat-form-field>
 
-        <!-- liste des comptes -->
+        <!-- liste des comptes client -->
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Client(e) du projet: {{ inputNomProjet.value }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-selection-list color="primary" name="idCompteClient" [multiple]="false" ngModel required>
+                    <mat-list-option [value]="+element.Id" *ngFor="let element of listeCompteClient">
+                        {{ element.Nom }} {{ element.Prenom }}
+                    </mat-list-option>
+                </mat-selection-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <!-- liste des comptes dev -->
         <mat-accordion>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -24,7 +40,7 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-selection-list color="primary" name="listeCompte" ngModel required>
-                    <mat-list-option [value]="+element.Id" *ngFor="let element of listeCompte">
+                    <mat-list-option [value]="+element.Id" *ngFor="let element of listeCompteDev">
                         {{ element.Nom }} {{ element.Prenom }}
                     </mat-list-option>
                 </mat-selection-list>

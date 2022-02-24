@@ -1,0 +1,15 @@
+<div class="container-fluid margeTop flexCard">
+    <mat-card *ngFor="let element of listeProjet; let i = index" (click)="ModalOuvrirProjet()" class="example-card">
+      <mat-card-header>
+        <mat-card-title>Projet n° {{ i + 1 }}</mat-card-title>
+      </mat-card-header>
+      <mat-icon class="icon">supervisor_account</mat-icon>
+      <mat-card-content>
+        <p>
+          Administrer les comptes de tous les utilisateurs du site.
+          Vous pouvez les modifier, en ajouter et voir leurs informations.
+        </p>
+      </mat-card-content>
+    </mat-card>
+    
+  </div>

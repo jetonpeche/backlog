@@ -7,6 +7,9 @@ namespace back
     {
         public static string ProtectionXSS(string _text)
         {
+            if (string.IsNullOrEmpty(_text))
+                return "";
+
             Regex regHtml = new Regex("<[^>]*>");
             return regHtml.Replace(_text, "");
         }

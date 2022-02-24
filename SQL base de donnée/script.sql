@@ -5,6 +5,7 @@ DROP TABLE Projet;
 DROP TABLE EtatTicket;
 DROP TABLE TypeCompte;
 DROP TABLE TypeRetour;
+DROP TABLE StatusProjet;
 
 CREATE TABLE TypeCompte
 (
@@ -24,35 +25,52 @@ CREATE TABLE EtatTicket
     nom varchar(200) NOT NULL
 );
 
-CREATE TABLE Projet
+CREATE TABLE StatusProjet
 (
-    id int PRIMARY KEY IDENTITY (1,1),
-    nom varchar(255) NOT NULL,
-    description varchar(1500) NOT NULL
+    id int PRIMARY KEY IDENTITY(1,1),
+    nom varchar(200) NOT NULL
 );
 
 CREATE TABLE Compte
 (
     id int PRIMARY KEY IDENTITY (1,1),
+
     nom varchar(255) NOT NULL,
     prenom varchar(255) NOT NULL,
 
     mail varchar(300) NOT NULL,
     mdp varchar(300) NOT NULL,
 
-    tel varchar(20) NOT NULL,
+    tel char(10) NOT NULL,
 
-    nomEntreprise varchar(300) NOT NULL,
+    -- info si compte est client
+    adresse varchar(300) DEFAULT '',
+    nomEntreprise varchar(300) DEFAULT '',
+
     idTypeCompte int NOT NULL,
 
     FOREIGN KEY (idTypeCompte) REFERENCES TypeCompte(id)
+);
+
+CREATE TABLE Projet
+(
+    id int PRIMARY KEY IDENTITY (1,1),
+
+    nom varchar(255) NOT NULL,
+    description varchar(1500) NOT NULL,
+
+    idStatus int DEFAULT 2,
+    idCompteClient int NOT NULL,
+
+    FOREIGN KEY (idStatus) REFERENCES StatusProjet(id),
+    FOREIGN KEY (idCompteClient) REFERENCES Compte(id)
 );
 
 CREATE TABLE Projet_Compte
 (
     idCompte int,
     idProjet int,
-    estChefProjet int,
+    estChefProjet int DEFAULT 0,
 
     PRIMARY KEY (idCompte, idProjet),
 
@@ -64,10 +82,10 @@ CREATE TABLE Ticket
 (
     id int PRIMARY KEY IDENTITY (1,1),
 
-    idProjet int,
-    idCompte int,
-    idTypeRetour int,
-    idEtatTicket int,
+    idProjet int NOT NULL,
+    idCompte int NOT NULL,
+    idTypeRetour int NOT NULL,
+    idEtatTicket int NOT NULL,
 
     msg varchar(1000) NOT NULL,
 
@@ -77,9 +95,18 @@ CREATE TABLE Ticket
     FOREIGN KEY (idEtatTicket) REFERENCES EtatTicket(id)
 );
 
-SET IDENTITY_INSERT utilisateur ON; 
+-- insert des données
 
+SET IDENTITY_INSERT TypeRetour ON;
+INSERT INTO TypeRetour (id, nom) VALUES (1, 'Bug'), (2, 'Question'), (3, 'Demande d ajout nouvelle fonctionnalitée'), 
+                                        (4, 'Demande RDV'), (5, 'Demande modification fonctionnalitée'), 
+                                        (6, 'Demande de suppression fonctionnalitée');
+SET IDENTITY_INSERT TypeRetour OFF;
+
+SET IDENTITY_INSERT StatusProjet ON;
+INSERT INTO StatusProjet (id, nom) VALUES (1, 'En attente client'), (2, 'Pas démarré'), (3, 'En cours'), (4, 'Terminé');
+SET IDENTITY_INSERT StatusProjet OFF;
+
+SET IDENTITY_INSERT TypeCompte ON;
 INSERT INTO TypeCompte (id, nom) VALUES (1, 'Admin'), (2, 'Développeur'), (3, 'Client');
-
-
-SET IDENTITY_INSERT utilisateur OFF; 
+SET IDENTITY_INSERT TypeCompte OFF;

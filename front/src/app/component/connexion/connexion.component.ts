@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Compte } from 'src/app/classes/Compte';
 import { Variable } from 'src/app/classeStatic/Variable';
 import { TypeRole } from 'src/app/enums/TypeRole';
 import { ConnexionService } from 'src/app/service/connexion.service';
@@ -30,15 +28,18 @@ export class ConnexionComponent
 
           switch (retour.TypeCompte) 
           {
-            case TypeRole.DEVELOPPEUR:
+            case TypeRole.ADMIN:
+              Variable.compteConnecter = retour;
               this.router.navigate(["/acceuilAdmin"]);
               break;
 
             case TypeRole.CLIENT:
+              Variable.compteConnecter = retour;
               this.router.navigate(["/acceuil"]);
               break;
 
             case TypeRole.DEVELOPPEUR:
+              Variable.compteConnecter = retour;
               this.router.navigate(["/acceuilDev"]);
               break;
           }

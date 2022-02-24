@@ -20,6 +20,7 @@ namespace back.Models
         public virtual DbSet<EtatTicket> EtatTickets { get; set; } = null!;
         public virtual DbSet<Projet> Projets { get; set; } = null!;
         public virtual DbSet<ProjetCompte> ProjetComptes { get; set; } = null!;
+        public virtual DbSet<StatusProjet> StatusProjets { get; set; } = null!;
         public virtual DbSet<Ticket> Tickets { get; set; } = null!;
         public virtual DbSet<TypeCompte> TypeComptes { get; set; } = null!;
         public virtual DbSet<TypeRetour> TypeRetours { get; set; } = null!;
@@ -29,7 +30,7 @@ namespace back.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=desktop-j5htqcs\\sqlserver;Initial Catalog=backlog;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-U41J905\\SQLEXPRESS;Initial Catalog=backlog;Integrated Security=True");
             }
         }
 
@@ -40,6 +41,12 @@ namespace back.Models
                 entity.ToTable("Compte");
 
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Adresse)
+                    .HasMaxLength(300)
+                    .IsUnicode(false)
+                    .HasColumnName("adresse")
+                    .HasDefaultValueSql("('')");
 
                 entity.Property(e => e.IdTypeCompte).HasColumnName("idTypeCompte");
 
@@ -61,7 +68,8 @@ namespace back.Models
                 entity.Property(e => e.NomEntreprise)
                     .HasMaxLength(300)
                     .IsUnicode(false)
-                    .HasColumnName("nomEntreprise");
+                    .HasColumnName("nomEntreprise")
+                    .HasDefaultValueSql("('')");
 
                 entity.Property(e => e.Prenom)
                     .HasMaxLength(255)
@@ -69,15 +77,16 @@ namespace back.Models
                     .HasColumnName("prenom");
 
                 entity.Property(e => e.Tel)
-                    .HasMaxLength(20)
+                    .HasMaxLength(10)
                     .IsUnicode(false)
-                    .HasColumnName("tel");
+                    .HasColumnName("tel")
+                    .IsFixedLength();
 
                 entity.HasOne(d => d.IdTypeCompteNavigation)
                     .WithMany(p => p.Comptes)
                     .HasForeignKey(d => d.IdTypeCompte)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compte__idTypeCo__0A9D95DB");
+                    .HasConstraintName("FK__Compte__idTypeCo__778AC167");
             });
 
             modelBuilder.Entity<EtatTicket>(entity =>
@@ -103,16 +112,33 @@ namespace back.Models
                     .IsUnicode(false)
                     .HasColumnName("description");
 
+                entity.Property(e => e.IdCompteClient).HasColumnName("idCompteClient");
+
+                entity.Property(e => e.IdStatus)
+                    .HasColumnName("idStatus")
+                    .HasDefaultValueSql("((2))");
+
                 entity.Property(e => e.Nom)
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("nom");
+
+                entity.HasOne(d => d.IdCompteClientNavigation)
+                    .WithMany(p => p.Projets)
+                    .HasForeignKey(d => d.IdCompteClient)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Projet__idCompte__7C4F7684");
+
+                entity.HasOne(d => d.IdStatusNavigation)
+                    .WithMany(p => p.Projets)
+                    .HasForeignKey(d => d.IdStatus)
+                    .HasConstraintName("FK__Projet__idStatus__7B5B524B");
             });
 
             modelBuilder.Entity<ProjetCompte>(entity =>
             {
                 entity.HasKey(e => new { e.IdCompte, e.IdProjet })
-                    .HasName("PK__Projet_C__4A309BE4FA4CFDDC");
+                    .HasName("PK__Projet_C__4A309BE49B0295DD");
 
                 entity.ToTable("Projet_Compte");
 
@@ -120,19 +146,33 @@ namespace back.Models
 
                 entity.Property(e => e.IdProjet).HasColumnName("idProjet");
 
-                entity.Property(e => e.EstChefProjet).HasColumnName("estChefProjet");
+                entity.Property(e => e.EstChefProjet)
+                    .HasColumnName("estChefProjet")
+                    .HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.IdCompteNavigation)
                     .WithMany(p => p.ProjetComptes)
                     .HasForeignKey(d => d.IdCompte)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projet_Co__idCom__0D7A0286");
+                    .HasConstraintName("FK__Projet_Co__idCom__00200768");
 
                 entity.HasOne(d => d.IdProjetNavigation)
                     .WithMany(p => p.ProjetComptes)
                     .HasForeignKey(d => d.IdProjet)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projet_Co__idPro__0E6E26BF");
+                    .HasConstraintName("FK__Projet_Co__idPro__01142BA1");
+            });
+
+            modelBuilder.Entity<StatusProjet>(entity =>
+            {
+                entity.ToTable("StatusProjet");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Nom)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("nom");
             });
 
             modelBuilder.Entity<Ticket>(entity =>
@@ -157,22 +197,26 @@ namespace back.Models
                 entity.HasOne(d => d.IdCompteNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdCompte)
-                    .HasConstraintName("FK__Ticket__idCompte__123EB7A3");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Ticket__idCompte__04E4BC85");
 
                 entity.HasOne(d => d.IdEtatTicketNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdEtatTicket)
-                    .HasConstraintName("FK__Ticket__idEtatTi__14270015");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Ticket__idEtatTi__06CD04F7");
 
                 entity.HasOne(d => d.IdProjetNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdProjet)
-                    .HasConstraintName("FK__Ticket__idProjet__114A936A");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Ticket__idProjet__03F0984C");
 
                 entity.HasOne(d => d.IdTypeRetourNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdTypeRetour)
-                    .HasConstraintName("FK__Ticket__idTypeRe__1332DBDC");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Ticket__idTypeRe__05D8E0BE");
             });
 
             modelBuilder.Entity<TypeCompte>(entity =>

@@ -43,6 +43,7 @@ import { ModalModifierCompteComponent } from './modal/admin/modal-modifier-compt
 import { GestionProjetComponent } from './component/admin/gestion-projet/gestion-projet.component';
 import { ModalAjouterProjetComponent } from './modal/admin/modal-ajouter-projet/modal-ajouter-projet.component';
 import { ModalSupprimerProjetComponent } from './modal/admin/modal-supprimer-projet/modal-supprimer-projet.component';
+import { AccueilDevComponent } from './component/dev/accueil/accueil-dev.component';
 //#endregion
 
 @NgModule({
@@ -55,7 +56,8 @@ import { ModalSupprimerProjetComponent } from './modal/admin/modal-supprimer-pro
     ModalModifierCompteComponent,
     GestionProjetComponent,
     ModalAjouterProjetComponent,
-    ModalSupprimerProjetComponent
+    ModalSupprimerProjetComponent,
+    AccueilDevComponent
   ],
   imports: [
     BrowserModule,

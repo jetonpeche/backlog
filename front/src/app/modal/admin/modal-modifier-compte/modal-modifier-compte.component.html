@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Ajouter compte</h1>
+<h1 mat-dialog-title>Modifier compte</h1>
 <mat-dialog-content class="mat-typography">
     <form #e="ngForm">
 
@@ -37,15 +37,21 @@
             <div class="col">
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Telephone</mat-label>
-                    <input matInput name="Tel" type="tel" maxlength="20" [ngModel]="data.compte.Tel" required>
+                    <input matInput name="Tel" type="tel" minlength="10" maxlength="10" [ngModel]="data.compte.Tel" required>
                 </mat-form-field>
             </div>
         </div>
 
         <!-- nom entreprise -->
-        <mat-form-field class="full-width" appearance="outline">
+        <mat-form-field *ngIf="EstRoleClient()" class="full-width" appearance="outline">
             <mat-label>Nom de l'entreprise</mat-label>
-            <input matInput name="NomEntreprise" type="text" [ngModel]="data.compte.NomEntreprise" required>
+            <input matInput name="NomEntreprise" type="text" maxlength="300" [ngModel]="data.compte.NomEntreprise" required>
+        </mat-form-field>
+
+        <!-- adresse -->
+        <mat-form-field *ngIf="EstRoleClient()" class="full-width" appearance="outline">
+            <mat-label>Adresse</mat-label>
+            <input matInput name="Adresse" type="text" maxlength="300" [ngModel]="data.compte.Adresse" required>
         </mat-form-field>
 
         <!-- role -->

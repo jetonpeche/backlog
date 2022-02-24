@@ -16,7 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddSignalR(option => option.EnableDetailedErrors = true);
 
 // connection a la base de donnée
-builder.Services.AddDbContext<backlogContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("defaut")));
+builder.Services.AddDbContext<backlogContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("pcPortable")));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(swagger =>
@@ -54,4 +54,9 @@ app.MapHub<HubSignal>("/toastr");
 app.Run();
 
 // generer les models de la bdd
+
+// pc portable
+// Scaffold-DbContext "Data Source=DESKTOP-U41J905\SQLEXPRESS;Initial Catalog=backlog;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+// pc
 // Scaffold-DbContext "Data Source=desktop-j5htqcs\sqlserver;Initial Catalog=backlog;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models

@@ -34,15 +34,21 @@
             <div class="col">
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Telephone</mat-label>
-                    <input matInput name="Tel" type="tel" maxlength="20" ngModel required>
+                    <input matInput name="Tel" type="tel" minlength="10" maxlength="10" ngModel required>
                 </mat-form-field>
             </div>
         </div>
 
         <!-- nom entreprise -->
-        <mat-form-field class="full-width" appearance="outline">
+        <mat-form-field *ngIf="EstRoleClient(selectRole.value)" class="full-width" appearance="outline">
             <mat-label>Nom de l'entreprise</mat-label>
-            <input matInput name="NomEntreprise" type="text" ngModel required>
+            <input matInput name="NomEntreprise" type="text" maxlength="300" ngModel required>
+        </mat-form-field>
+
+        <!-- adresse -->
+        <mat-form-field *ngIf="EstRoleClient(selectRole.value)" class="full-width" appearance="outline">
+            <mat-label>Adresse</mat-label>
+            <input matInput name="Adresse" type="text" maxlength="300" ngModel required>
         </mat-form-field>
 
         <!-- role -->
