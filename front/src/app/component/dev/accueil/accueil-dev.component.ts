@@ -25,6 +25,26 @@ export class AccueilDevComponent implements OnInit
     
   }
 
+  FormatNumTel(_numTel: string): string
+  {
+    let numReturn = "";
+    const LISTE_MATCH = _numTel.match(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
+    console.log(LISTE_MATCH);
+    
+
+    for (let i = 1; i < LISTE_MATCH.length; i++) 
+    {
+      const element = LISTE_MATCH[i];
+
+      if(i == 1)
+        numReturn += element;
+      else
+        numReturn += `-${element}`;
+    }
+
+    return numReturn;
+  }
+
   private ListerProjet(): void
   {
     //console.log(Variable.compteConnecter.Id);
