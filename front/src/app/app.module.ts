@@ -24,6 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatBadgeModule} from '@angular/material/badge';
 //#endregion
 
 //#region services
@@ -86,7 +87,8 @@ import { AccueilDevComponent } from './component/dev/accueil/accueil-dev.compone
     MatSortModule,
     MatDialogModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
   ],
   entryComponents: [ModalAjouterCompteComponent, ModalModifierCompteComponent],
   providers: [OutilService, ConnexionService, CompteService, TypeCompteService],

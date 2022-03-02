@@ -86,7 +86,7 @@ namespace back.Models
                     .WithMany(p => p.Comptes)
                     .HasForeignKey(d => d.IdTypeCompte)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compte__idTypeCo__778AC167");
+                    .HasConstraintName("FK__Compte__idTypeCo__1DB06A4F");
             });
 
             modelBuilder.Entity<EtatTicket>(entity =>
@@ -127,18 +127,18 @@ namespace back.Models
                     .WithMany(p => p.Projets)
                     .HasForeignKey(d => d.IdCompteClient)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projet__idCompte__7C4F7684");
+                    .HasConstraintName("FK__Projet__idCompte__22751F6C");
 
                 entity.HasOne(d => d.IdStatusNavigation)
                     .WithMany(p => p.Projets)
                     .HasForeignKey(d => d.IdStatus)
-                    .HasConstraintName("FK__Projet__idStatus__7B5B524B");
+                    .HasConstraintName("FK__Projet__idStatus__2180FB33");
             });
 
             modelBuilder.Entity<ProjetCompte>(entity =>
             {
                 entity.HasKey(e => new { e.IdCompte, e.IdProjet })
-                    .HasName("PK__Projet_C__4A309BE49B0295DD");
+                    .HasName("PK__Projet_C__4A309BE482C356AC");
 
                 entity.ToTable("Projet_Compte");
 
@@ -154,13 +154,13 @@ namespace back.Models
                     .WithMany(p => p.ProjetComptes)
                     .HasForeignKey(d => d.IdCompte)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projet_Co__idCom__00200768");
+                    .HasConstraintName("FK__Projet_Co__idCom__2645B050");
 
                 entity.HasOne(d => d.IdProjetNavigation)
                     .WithMany(p => p.ProjetComptes)
                     .HasForeignKey(d => d.IdProjet)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projet_Co__idPro__01142BA1");
+                    .HasConstraintName("FK__Projet_Co__idPro__2739D489");
             });
 
             modelBuilder.Entity<StatusProjet>(entity =>
@@ -198,32 +198,34 @@ namespace back.Models
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdCompte)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ticket__idCompte__04E4BC85");
+                    .HasConstraintName("FK__Ticket__idCompte__2B0A656D");
 
                 entity.HasOne(d => d.IdEtatTicketNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdEtatTicket)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ticket__idEtatTi__06CD04F7");
+                    .HasConstraintName("FK__Ticket__idEtatTi__2CF2ADDF");
 
                 entity.HasOne(d => d.IdProjetNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdProjet)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ticket__idProjet__03F0984C");
+                    .HasConstraintName("FK__Ticket__idProjet__2A164134");
 
                 entity.HasOne(d => d.IdTypeRetourNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdTypeRetour)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ticket__idTypeRe__05D8E0BE");
+                    .HasConstraintName("FK__Ticket__idTypeRe__2BFE89A6");
             });
 
             modelBuilder.Entity<TypeCompte>(entity =>
             {
                 entity.ToTable("TypeCompte");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
 
                 entity.Property(e => e.Nom)
                     .HasMaxLength(300)

@@ -9,7 +9,7 @@ DROP TABLE StatusProjet;
 
 CREATE TABLE TypeCompte
 (
-    id int PRIMARY KEY IDENTITY (1,1),
+    id int PRIMARY KEY,
     nom varchar(300) NOT NULL
 );
 
@@ -107,6 +107,4 @@ SET IDENTITY_INSERT StatusProjet ON;
 INSERT INTO StatusProjet (id, nom) VALUES (1, 'En attente client'), (2, 'Pas démarré'), (3, 'En cours'), (4, 'Terminé');
 SET IDENTITY_INSERT StatusProjet OFF;
 
-SET IDENTITY_INSERT TypeCompte ON;
 INSERT INTO TypeCompte (id, nom) VALUES (1, 'Admin'), (2, 'Développeur'), (3, 'Client');
-SET IDENTITY_INSERT TypeCompte OFF;

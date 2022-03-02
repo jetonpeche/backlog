@@ -28,6 +28,37 @@ namespace back.Controllers
             }
         }
 
+        [HttpGet("lister/{idCompteClient}")]
+        public string Lister([FromRoute] int idCompteClient)
+        {
+            try
+            {
+                var liste = DB_Projet.Lister(idCompteClient);
+
+                return JsonConvert.SerializeObject(liste);
+            }
+            catch (Exception e)
+            {
+                return JsonConvert.SerializeObject(e);
+            }
+        }
+
+        [HttpGet("lister2/{idCompteDev}")]
+        public string Lister2([FromRoute] int idCompteDev)
+        {
+            try
+            {
+                var liste = DB_Projet.ListerProjetDuDev(idCompteDev);
+
+                return JsonConvert.SerializeObject(liste);
+            }
+            catch (Exception e)
+            {
+
+                return JsonConvert.SerializeObject(e);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

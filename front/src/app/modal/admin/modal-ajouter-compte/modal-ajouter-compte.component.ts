@@ -36,7 +36,7 @@ export class ModalAjouterCompteComponent implements OnInit
     }
 
 
-    // si compte client
+    // si compte client ou dev
     if(!_form.value?.Mdp)
     {
       // creer un mdp

@@ -1,13 +1,24 @@
 <div class="container-fluid margeTop flexCard">
     <mat-card *ngFor="let element of listeProjet; let i = index" (click)="ModalOuvrirProjet()" class="example-card">
       <mat-card-header>
-        <mat-card-title>Projet n° {{ i + 1 }}</mat-card-title>
+        <mat-card-title>{{ element.Nom }}</mat-card-title>
+        <mat-card-subtitle>
+          Client : {{ element.Client.NomEntreprise }}
+          <ul>
+            <li>Nom: <span>{{ element.Client.Prenom }} {{ element.Client.Nom | uppercase }}</span></li>
+            <li>Mail: <span>{{ element.Client.Mail }}</span></li>
+            <li>Tel: <span>{{ element.Client.Tel }}</span></li>
+          </ul>
+        </mat-card-subtitle>
       </mat-card-header>
-      <mat-icon class="icon">supervisor_account</mat-icon>
       <mat-card-content>
-        <p>
-          Administrer les comptes de tous les utilisateurs du site.
-          Vous pouvez les modifier, en ajouter et voir leurs informations.
+        <p style="white-space: pre-wrap;">
+          Description: <br><br>
+          {{ element.Description }}
+        </p>
+
+        <p style="position: absolute; bottom: 3%;">
+          <span matBadge="4" matBadgeOverlap="false">Nombre de fonctionalité(s) restante(s)</span>
         </p>
       </mat-card-content>
     </mat-card>

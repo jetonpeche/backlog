@@ -27,9 +27,13 @@ export class AccueilDevComponent implements OnInit
 
   private ListerProjet(): void
   {
-    this.projetServ.Liste2(Variable.compteConnecter.Id).subscribe({
+    //console.log(Variable.compteConnecter.Id);
+    
+    this.projetServ.Liste2(1).subscribe({
       next: (liste) =>
       {
+        console.log(liste);
+        
         this.listeProjet = liste;
       },
       error: () =>
