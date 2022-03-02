@@ -29,9 +29,7 @@ export class AccueilDevComponent implements OnInit
   {
     let numReturn = "";
     const LISTE_MATCH = _numTel.match(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
-    console.log(LISTE_MATCH);
     
-
     for (let i = 1; i < LISTE_MATCH.length; i++) 
     {
       const element = LISTE_MATCH[i];
