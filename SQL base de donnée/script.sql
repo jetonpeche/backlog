@@ -1,6 +1,7 @@
 DROP TABLE Ticket;
 DROP TABLE Projet_Compte;
 DROP TABLE Compte;
+DROP TABLE Projet_Tache;
 DROP TABLE Projet;
 DROP TABLE EtatTicket;
 DROP TABLE TypeCompte;
@@ -28,6 +29,12 @@ CREATE TABLE EtatTicket
 CREATE TABLE StatusProjet
 (
     id int PRIMARY KEY IDENTITY(1,1),
+    nom varchar(200) NOT NULL
+);
+
+CREATE TABLE StatusTache
+(
+    id int PRIMARY KEY,
     nom varchar(200) NOT NULL
 );
 
@@ -64,6 +71,18 @@ CREATE TABLE Projet
 
     FOREIGN KEY (idStatus) REFERENCES StatusProjet(id),
     FOREIGN KEY (idCompteClient) REFERENCES Compte(id)
+);
+
+CREATE TABLE Projet_Tache
+(
+    id int PRIMARY KEY,
+
+    description varchar(1500) NOT NULL,
+    idStatusTache int NOT NULL,
+    idProjet int NOT NULL,
+
+    FOREIGN KEY (idStatusTache) REFERENCES StatusTache(id),
+    FOREIGN KEY (idProjet) REFERENCES Projet(id)
 );
 
 CREATE TABLE Projet_Compte
@@ -108,3 +127,4 @@ INSERT INTO StatusProjet (id, nom) VALUES (1, 'En attente client'), (2, 'Pas dé
 SET IDENTITY_INSERT StatusProjet OFF;
 
 INSERT INTO TypeCompte (id, nom) VALUES (1, 'Admin'), (2, 'Développeur'), (3, 'Client');
+INSERT INTO StatusTache (id, nom) VALUES (1, 'A faire'), (2, 'En cours'), (3, 'Terminé');
