@@ -1,5 +1,5 @@
 <div class="container-fluid margeTop flexCard">
-    <mat-card *ngFor="let element of listeProjet; let i = index" (click)="ModalOuvrirProjet()" class="example-card">
+    <mat-card *ngFor="let element of listeProjet; let i = index" (click)="AllerProjet(element.Id)" class="example-card">
       <mat-card-header>
         <mat-card-title>{{ element.Nom }}</mat-card-title>
         <mat-card-subtitle>

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import { environment } from 'src/environments/environment';
+import { Tache } from '../types/Tache';
+import { OutilService } from './outil.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ export class SignalService
 {
   hubConnexion: signalR.HubConnection;
 
-  constructor() { }
+  constructor(private outilServ: OutilService) { }
 
   StartConnexion()
   {
@@ -32,17 +34,27 @@ export class SignalService
     )
   }
 
-  async DemanderAuServeur()
+  DemanderQuitterGrpProjet(_idProjet: number): void
   {
-    await this.hubConnexion.invoke("AskServer", "a");
+    this.hubConnexion.invoke("QuitterGrpProjet", _idProjet);
   }
 
-  ReponseServeur()
+  async DemanderAjouterTache(_info): Promise<void>
   {
-    this.hubConnexion.on("askServerReponse", (retour) =>
-    {
-      console.log(retour);
-      
-    })
+    await this.hubConnexion.invoke("AjouterTache", _info).catch(
+      () =>
+      {
+        this.outilServ.ToastErreurHttp();
+      });
+  }
+
+  async DemanderListeTache(_idProjet: number): Promise<void>
+  {
+    await this.hubConnexion.invoke("ListerTache", _idProjet);
+  }
+
+  async DemanderModifTache(_info): Promise<void>
+  {
+    await this.hubConnexion.invoke("ModifierEtatTache", _info);
   }
 }

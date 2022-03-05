@@ -8,6 +8,7 @@ namespace back.Models
         public Projet()
         {
             ProjetComptes = new HashSet<ProjetCompte>();
+            ProjetTaches = new HashSet<ProjetTache>();
             Tickets = new HashSet<Ticket>();
         }
 
@@ -20,6 +21,7 @@ namespace back.Models
         public virtual Compte IdCompteClientNavigation { get; set; } = null!;
         public virtual StatusProjet? IdStatusNavigation { get; set; }
         public virtual ICollection<ProjetCompte> ProjetComptes { get; set; }
+        public virtual ICollection<ProjetTache> ProjetTaches { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

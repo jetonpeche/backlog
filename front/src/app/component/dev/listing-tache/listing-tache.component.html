@@ -1,0 +1,39 @@
+<div class="container-fluid margeTop">
+    <div class="titreAction">
+        <h1>Liste des taches</h1>
+        <button mat-raised-button (click)="OuvrirModalAjouterTache()" color="primary">Ajouter</button>
+    </div>
+
+    <mat-card class="matCard" *ngFor="let element of listeTache; let i = index">
+
+        <!-- titre -->
+        <mat-card-title>Tache n°{{ i + 1 }}</mat-card-title>
+
+        <mat-card-subtitle class="sousTitre">
+            <div class="row">
+                <div class="col-1">
+                    <div [ngStyle]="{ 'background-color': SetCouleurCarre(+select.value) }" class="carre"></div>
+                </div>
+                <div class="col">
+                    <div class="nomStatus">{{ SetNomStatus(+select.value) }}</div>
+                </div>
+            </div>
+        </mat-card-subtitle>
+
+        <mat-card-content>
+
+            <!-- select status tache -->
+            <mat-form-field appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select #select [ngModel]="element.IdStatusTache" (selectionChange)="ChangerEtat(+select.value, element)">
+                    <mat-option [value]="element2.Id" *ngFor="let element2 of listeStatusTache">
+                        {{ element2.Nom }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+           
+            <!-- description -->
+            <p>{{ element.Description }}</p>
+        </mat-card-content>
+    </mat-card>
+</div>

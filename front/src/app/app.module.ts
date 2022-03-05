@@ -45,6 +45,8 @@ import { GestionProjetComponent } from './component/admin/gestion-projet/gestion
 import { ModalAjouterProjetComponent } from './modal/admin/modal-ajouter-projet/modal-ajouter-projet.component';
 import { ModalSupprimerProjetComponent } from './modal/admin/modal-supprimer-projet/modal-supprimer-projet.component';
 import { AccueilDevComponent } from './component/dev/accueil/accueil-dev.component';
+import { ListingTacheComponent } from './component/dev/listing-tache/listing-tache.component';
+import { ModalAjouterTacheComponent } from './modal/dev/modal-ajouter-tache/modal-ajouter-tache.component';
 //#endregion
 
 @NgModule({
@@ -58,7 +60,9 @@ import { AccueilDevComponent } from './component/dev/accueil/accueil-dev.compone
     GestionProjetComponent,
     ModalAjouterProjetComponent,
     ModalSupprimerProjetComponent,
-    AccueilDevComponent
+    AccueilDevComponent,
+    ListingTacheComponent,
+    ModalAjouterTacheComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Variable } from 'src/app/classeStatic/Variable';
 import { OutilService } from 'src/app/service/outil.service';
 import { ProjetService } from 'src/app/service/projet.service';
@@ -13,16 +14,16 @@ export class AccueilDevComponent implements OnInit
 {
   listeProjet: Projet[] = [];
 
-  constructor(private projetServ: ProjetService, private outilServ: OutilService) { }
+  constructor(private projetServ: ProjetService, private outilServ: OutilService, private router: Router) { }
 
   ngOnInit(): void 
   {
     this.ListerProjet();
   }
 
-  ModalOuvrirProjet()
+  AllerProjet(_idProjet: number): void
   {
-    
+    this.router.navigate(["/tache", _idProjet]);
   }
 
   FormatNumTel(_numTel: string): string
@@ -45,9 +46,7 @@ export class AccueilDevComponent implements OnInit
 
   private ListerProjet(): void
   {
-    //console.log(Variable.compteConnecter.Id);
-    
-    this.projetServ.Liste2(1).subscribe({
+    this.projetServ.Liste2(2).subscribe({
       next: (liste) =>
       {
         console.log(liste);

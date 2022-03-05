@@ -13,7 +13,7 @@ import { TypeCompteService } from './service/type-compte.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy
+export class AppComponent implements OnInit
 {
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
   .pipe(
@@ -29,16 +29,7 @@ export class AppComponent implements OnInit, OnDestroy
   ngOnInit() 
   {
     this.ListerTypeCompte();
-    this.signalServ.StartConnexion();   
-    
-    setTimeout(() => {
-      this.signalServ.DemanderAuServeur();
-      this.signalServ.ReponseServeur();
-    }, 2000);
-  }
-
-  ngOnDestroy(): void {
-      this.signalServ.hubConnexion.off("askServerReponse");
+    this.signalServ.StartConnexion();
   }
 
   EstConnecter(): boolean

@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Ajouter tache</h1>
+<mat-dialog-content class="mat-typography">
+    <form #e="ngForm">
+
+        <input type="hidden" name="idProjet" [ngModel]="data.idProjet" required>
+
+        <!-- description -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea #description matInput name="Description" rows="10" maxlength="1500" ngModel required></textarea>
+            <mat-hint align="end">{{description.value?.length || 0}}/1500</mat-hint>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="warn" mat-dialog-close>Fermer</button>
+    <button mat-raised-button color="primary" (click)="AjouterTache(e)" cdkFocusInitial>Ajouter</button>
+</mat-dialog-actions>
