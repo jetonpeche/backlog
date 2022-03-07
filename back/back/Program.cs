@@ -13,10 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
+// ajout de signalr + voir les erreurs
 builder.Services.AddSignalR(option => option.EnableDetailedErrors = true);
 
 // connection a la base de donnée
-builder.Services.AddDbContext<backlogContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("pc")));
+builder.Services.AddDbContext<backlogContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("pcPortable")));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(swagger =>
@@ -49,6 +50,8 @@ app.UseCors("CORS");
 app.UseAuthorization();
 
 app.MapControllers();
+
+// route API pour acceder au hub de signalr
 app.MapHub<HubSignal>("/toastr");
 
 app.Run();

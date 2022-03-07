@@ -20,21 +20,37 @@
             return liste;
         }
 
+        public static dynamic DerniereTacheAjouter(int _idProjet)
+        {
+            var tache = (from t in context.ProjetTaches
+                        where t.IdProjet == _idProjet
+                        orderby t.Id descending
+                        select new
+                        {
+                            t.Id,
+                            t.Description,
+                            t.IdStatusTache,
+                            NomStausTache = t.IdStatusTacheNavigation.Nom
+                        }).First();
+
+            return tache;
+        }
+
         public static dynamic Ajouter(ProjetTache _tache)
         {
             context.ProjetTaches.Add(_tache);
             context.SaveChanges();
 
-            var tache = context.ProjetTaches
-                .OrderByDescending(t => t.Id)
-                .Select(t => 
-                new 
-                {
-                    t.Id,
-                    t.Description, 
-                    t.IdStatusTache,
-                    NomStausTache = t.IdStatusTacheNavigation.Nom
-                }).First();
+            var tache = (from t in context.ProjetTaches
+                         where t.IdProjet == _tache.IdProjet
+                         orderby t.Id descending
+                         select new
+                         {
+                             t.Id,
+                             t.Description,
+                             t.IdStatusTache,
+                             NomStausTache = t.IdStatusTacheNavigation.Nom
+                         }).First();
 
             return tache;
         }

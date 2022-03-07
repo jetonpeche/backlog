@@ -27,7 +27,11 @@ namespace back.signal
             var tacheRetour = DB_ProjetTache.Ajouter(tache);
             string tacheRetourString = JsonConvert.SerializeObject(tacheRetour);
 
-            await Clients.Group($"projet{_tache.IdProjet}").SendAsync("reponseNouvelleTache", tacheRetourString);
+            // envoie a l'emetteur
+            await Clients.Caller.SendAsync("reponseNouvelleTacheExpediteur", tacheRetourString);
+
+            // envoie au groupe sauf l'emetteur
+            await Clients.GroupExcept($"projet{_tache.IdProjet}", Context.ConnectionId).SendAsync("reponseNouvelleTache", tacheRetourString);
         }
 
         public async Task ModifierEtatTache(Import_TacheStatusModif _tache)

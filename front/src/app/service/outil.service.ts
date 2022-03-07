@@ -16,6 +16,11 @@ export class OutilService
     this.toast.error("Erreur réseaux", "Vous n'etes plus connecté à internet");
   }
 
+  ToastInfo(_msg: string): void
+  {
+    this.toast.info(_msg);
+  }
+
   ToastSucces(_msg: string): void
   {
     this.toast.success(_msg);

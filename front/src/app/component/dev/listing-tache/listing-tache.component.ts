@@ -34,7 +34,9 @@ export class ListingTacheComponent implements OnInit, OnDestroy
 
     this.ReponseServeurDemanderModifTache();
     this.ReponseServeurListeTache();
+
     this.ReponseServeurNouvelleTache();
+    this.ReponseServeurNouvelleTache_Epediteur();
 
     this.ListerStatusTache();
   }
@@ -96,7 +98,18 @@ export class ListingTacheComponent implements OnInit, OnDestroy
   {
     this.signalrServ.hubConnexion.on("reponseNouvelleTache", (retour: string) =>
     {
-      console.log(retour);
+      console.log("normal", retour);
+      
+      this.listeTache.push(JSON.parse(retour));
+      this.outilServ.ToastInfo("Une nouvelle tache a été ajoutée");
+    });
+  }
+
+  private ReponseServeurNouvelleTache_Epediteur(): void
+  {
+    this.signalrServ.hubConnexion.on("reponseNouvelleTacheExpediteur", (retour: string) =>
+    {
+      console.log("caller", retour);
       
       this.listeTache.push(JSON.parse(retour));
     });
