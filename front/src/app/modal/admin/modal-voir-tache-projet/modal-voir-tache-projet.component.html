@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Liste des taches</h1>
+<mat-dialog-content class="mat-typography">
+
+    <mat-card class="matCard" *ngFor="let element of listeTache; let i = index">
+
+        <!-- titre -->
+        <mat-card-title>Tache n°{{ i + 1 }}</mat-card-title>
+
+        <mat-card-subtitle class="sousTitre">
+            <div class="row">
+                <div class="col-1">
+                    <div [ngStyle]="{ 'background-color': element.CouleurFontStatusTache }" class="carre"></div>
+                </div>
+                <div class="col">
+                    <div class="nomStatus">{{ element.NomStatusTache }}</div>
+                </div>
+            </div>
+        </mat-card-subtitle>
+
+        <mat-card-content>
+            <p>{{ element.Description }}</p>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>

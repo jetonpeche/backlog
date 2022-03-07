@@ -11,8 +11,8 @@ export class TacheService {
 
   constructor(private http: HttpClient) { }
 
-  ModifierEtat(_info): Observable<any>
+  Lister(_idProjet: number): Observable<Tache[]>
   {
-    return this.http.put(`${environment.URL_API}/Tache/modifier`, _info);
+    return this.http.get<Tache[]>(`${environment.URL_API}/TacheProjet/lister/${_idProjet}`);
   }
 }

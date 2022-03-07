@@ -7,6 +7,7 @@ import { Projet } from 'src/app/types/Projet';
 import { ModalAjouterProjetComponent } from 'src/app/modal/admin/modal-ajouter-projet/modal-ajouter-projet.component';
 import { OutilService } from 'src/app/service/outil.service';
 import { ProjetService } from 'src/app/service/projet.service';
+import { ModalVoirTacheProjetComponent } from 'src/app/modal/admin/modal-voir-tache-projet/modal-voir-tache-projet.component';
 
 @Component({
   selector: 'app-gestion-projet',
@@ -21,7 +22,10 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
   displayedColumns: string[] = ['Nom', 'Description', 'projet', 'modifier', 'supprimer'];
   listeProjet: MatTableDataSource<Projet>;
 
-  constructor(private projetServ: ProjetService, private outilServ: OutilService, private dialog: MatDialog) { }
+  constructor(
+    private projetServ: ProjetService, 
+    private outilServ: OutilService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void 
   {
@@ -64,6 +68,11 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
         }
       }
     });
+  }
+
+  OuvrirModalTacheProjet(_idProjet: number): void
+  {
+    this.dialog.open(ModalVoirTacheProjetComponent, { data: { idProjet: _idProjet }});
   }
 
   OuvrirModalModifierProjet(_projet: Projet): void

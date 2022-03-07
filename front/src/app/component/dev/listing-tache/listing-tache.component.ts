@@ -97,9 +97,7 @@ export class ListingTacheComponent implements OnInit, OnDestroy
   private ReponseServeurNouvelleTache(): void
   {
     this.signalrServ.hubConnexion.on("reponseNouvelleTache", (retour: string) =>
-    {
-      console.log("normal", retour);
-      
+    { 
       this.listeTache.push(JSON.parse(retour));
       this.outilServ.ToastInfo("Une nouvelle tache a été ajoutée");
     });
@@ -109,8 +107,6 @@ export class ListingTacheComponent implements OnInit, OnDestroy
   {
     this.signalrServ.hubConnexion.on("reponseNouvelleTacheExpediteur", (retour: string) =>
     {
-      console.log("caller", retour);
-      
       this.listeTache.push(JSON.parse(retour));
     });
   }

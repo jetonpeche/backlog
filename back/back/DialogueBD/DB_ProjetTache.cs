@@ -14,7 +14,8 @@
                             t.Description,
 
                             t.IdStatusTache,
-                            NomStausTache = t.IdStatusTacheNavigation.Nom
+                            NomStatusTache = t.IdStatusTacheNavigation.Nom,
+                            CouleurFontStatusTache = t.IdStatusTacheNavigation.CouleurFont
                         };
 
             return liste;
@@ -30,7 +31,7 @@
                             t.Id,
                             t.Description,
                             t.IdStatusTache,
-                            NomStausTache = t.IdStatusTacheNavigation.Nom
+                            NomStatusTache = t.IdStatusTacheNavigation.Nom
                         }).First();
 
             return tache;
