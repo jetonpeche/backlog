@@ -48,6 +48,7 @@ import { AccueilDevComponent } from './component/dev/accueil/accueil-dev.compone
 import { ListingTacheComponent } from './component/dev/listing-tache/listing-tache.component';
 import { ModalAjouterTacheComponent } from './modal/dev/modal-ajouter-tache/modal-ajouter-tache.component';
 import { ModalVoirTacheProjetComponent } from './modal/admin/modal-voir-tache-projet/modal-voir-tache-projet.component';
+import { ModalConfirmationComponent } from './modal/modal-confirmation/modal-confirmation.component';
 //#endregion
 
 @NgModule({
@@ -64,7 +65,8 @@ import { ModalVoirTacheProjetComponent } from './modal/admin/modal-voir-tache-pr
     AccueilDevComponent,
     ListingTacheComponent,
     ModalAjouterTacheComponent,
-    ModalVoirTacheProjetComponent
+    ModalVoirTacheProjetComponent,
+    ModalConfirmationComponent
   ],
   imports: [
     BrowserModule,

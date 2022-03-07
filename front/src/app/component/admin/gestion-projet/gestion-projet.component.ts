@@ -8,6 +8,7 @@ import { ModalAjouterProjetComponent } from 'src/app/modal/admin/modal-ajouter-p
 import { OutilService } from 'src/app/service/outil.service';
 import { ProjetService } from 'src/app/service/projet.service';
 import { ModalVoirTacheProjetComponent } from 'src/app/modal/admin/modal-voir-tache-projet/modal-voir-tache-projet.component';
+import { ModalConfirmationComponent } from 'src/app/modal/modal-confirmation/modal-confirmation.component';
 
 @Component({
   selector: 'app-gestion-projet',
@@ -80,9 +81,22 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
 
   }
 
-  SupprimerProjet(_idProjet: number): void
+  SupprimerProjet(_idProjet: number, _nomProjet: string): void
   {
+    const TITRE = `Confirmation suppression du projet: ${_nomProjet}`;
+    const TEXTE = `Attention vous etes sur le point de supprimer le projet: ${_nomProjet}, \n veuillez confirmer`;
 
+    this.outilServ.ModalConfirmation(TITRE, TEXTE);
+   
+    this.outilServ.sujet.subscribe({
+      next: (retour: boolean) =>
+      {
+        if(retour)
+        {
+          
+        }
+      }
+    })
   }
 
   private ListerProjet(): void

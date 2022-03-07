@@ -90,5 +90,20 @@ namespace back.Controllers
                 return JsonConvert.SerializeObject(0);
             }
         }
+
+        // MODIFIER SCRIPT SQL POUR DELETE CASCADE + A TESTER
+        /// <summary>
+        /// Supprime tout se qui est en rapport avec le projet
+        /// </summary>
+        /// <param name="idProjet"></param>
+        /// <response code="200">true</response>
+        /// <response code="400">false</response>
+        [HttpDelete("supprimer/{idProjet}")]
+        public string Supprimer([FromRoute] int idProjet)
+        {
+            DB_Projet.Supprimer(idProjet);
+
+            return JsonConvert.SerializeObject(true);
+        }
     }
 }

@@ -93,5 +93,13 @@
 
             return context.Projets.OrderByDescending(p => p.Id).First().Id;
         }
+
+        public static void Supprimer(int _idProjet)
+        {
+            var projet = context.Projets.Where(p => p.Id == _idProjet).First();
+
+            context.Projets.Remove(projet);
+            context.SaveChanges();
+        }
     }
 }

@@ -1,15 +1,44 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { Variable } from '../classeStatic/Variable';
 import { TypeRole } from '../enums/TypeRole';
-import { TypeCompte } from '../types/TypeCompte';
+import { ModalConfirmationComponent } from '../modal/modal-confirmation/modal-confirmation.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OutilService 
 {
-  constructor(private toast: ToastrService) { }
+  sujet: Subject<boolean>;
+
+  constructor(private toast: ToastrService, private dialog: MatDialog) { }
+
+  ModalConfirmation(_titre, _texte): void
+  {
+    this.sujet = new Subject<boolean>();
+
+    const DIALOG_REF = this.dialog.open(ModalConfirmationComponent, 
+      { 
+        width: "20%",
+        data: 
+        { 
+          titre: _titre, 
+          texte: _texte
+        }
+      });
+
+    DIALOG_REF.afterClosed().subscribe({
+      next: (retour: boolean) =>
+      {
+        this.sujet.next(retour);
+
+        // "supprimer" le sujet plus rien ne passe
+        this.sujet.complete();
+      }
+    })
+  }
 
   ToastErreurHttp(): void
   {
