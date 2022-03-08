@@ -1,6 +1,6 @@
 ﻿namespace back.ModelsImport
 {
-    public class Import_TacheStatusModif
+    public class Import_TacheModif
     {
         public int Id { get; set; }
         public int IdProjet { get; set; }

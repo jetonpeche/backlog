@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { CanalSignalR } from 'src/app/enums/CanalSignalR';
 import { ModalAjouterTacheComponent } from 'src/app/modal/dev/modal-ajouter-tache/modal-ajouter-tache.component';
 import { OutilService } from 'src/app/service/outil.service';
 import { SignalService } from 'src/app/service/signal.service';
@@ -33,24 +34,27 @@ export class ListingTacheComponent implements OnInit, OnDestroy
     this.signalrServ.DemanderListeTache(this.idProjet);
 
     this.ReponseServeurDemanderModifTache();
+    this.ReponseServeurModifDescriptionTache();
     this.ReponseServeurListeTache();
 
     this.ReponseServeurNouvelleTache();
     this.ReponseServeurNouvelleTache_Epediteur();
+
+    this.ReponseServeurTacheSupprimer();
 
     this.ListerStatusTache();
   }
 
   OuvrirModalAjouterTache(): void
   {
-    const DIALOG_REF = this.dialog.open(ModalAjouterTacheComponent, { width: "50%", data: { idProjet: this.idProjet }});
+    this.dialog.open(ModalAjouterTacheComponent, { width: "50%", data: { idProjet: this.idProjet }});
   }
 
   ChangerEtat(_idStatut: number, _tache: Tache): void
   {
     const TACHE_MODIFIER = { Id: _tache.Id, Description: _tache.Description, IdProjet: this.idProjet, IdStatusTache: _idStatut };
 
-    this.signalrServ.DemanderModifTache(TACHE_MODIFIER);
+    this.signalrServ.DemanderModifEtatTache(TACHE_MODIFIER);
 
     _tache.IdStatusTache = _idStatut;
   }
@@ -77,7 +81,7 @@ export class ListingTacheComponent implements OnInit, OnDestroy
 
   private ReponseServeurDemanderModifTache(): void
   {
-    this.signalrServ.hubConnexion.on("reponseDemanderModifTache", (retour: string) =>
+    this.signalrServ.hubConnexion.on(CanalSignalR.REPONSE_MODIF_STATUT_TACHE, (retour: string) =>
     {
       const INFO_TACHE = JSON.parse(retour);
 
@@ -86,9 +90,21 @@ export class ListingTacheComponent implements OnInit, OnDestroy
     });
   }
 
+  private ReponseServeurModifDescriptionTache(): void
+  {
+    this.signalrServ.hubConnexion.on(CanalSignalR.REPONSE_MODIF_DESC_TACHE, (retour: string) =>
+    {
+      const TACHE_RETOUR = JSON.parse(retour);
+
+      let tache = this.listeTache.find(t => t.Id == TACHE_RETOUR.Id);
+
+      tache.Description = TACHE_RETOUR.Description;
+    });
+  }
+
   private ReponseServeurListeTache(): void
   {
-    this.signalrServ.hubConnexion.on("reponseListeTache", (retour: string) =>
+    this.signalrServ.hubConnexion.on(CanalSignalR.REPONSE_LISTE_TACHE, (retour: string) =>
     {
       this.listeTache = JSON.parse(retour);    
     });
@@ -96,7 +112,7 @@ export class ListingTacheComponent implements OnInit, OnDestroy
 
   private ReponseServeurNouvelleTache(): void
   {
-    this.signalrServ.hubConnexion.on("reponseNouvelleTache", (retour: string) =>
+    this.signalrServ.hubConnexion.on(CanalSignalR.REPONSE_NOUVELLE_TACHE, (retour: string) =>
     { 
       this.listeTache.push(JSON.parse(retour));
       this.outilServ.ToastInfo("Une nouvelle tache a été ajoutée");
@@ -105,9 +121,22 @@ export class ListingTacheComponent implements OnInit, OnDestroy
 
   private ReponseServeurNouvelleTache_Epediteur(): void
   {
-    this.signalrServ.hubConnexion.on("reponseNouvelleTacheExpediteur", (retour: string) =>
+    this.signalrServ.hubConnexion.on(CanalSignalR.REPONSE_NOUVELLE_TACHE_EXPEDITEUR, (retour: string) =>
     {
       this.listeTache.push(JSON.parse(retour));
+    });
+  }
+
+  private ReponseServeurTacheSupprimer(): void
+  {
+    this.signalrServ.hubConnexion.on(CanalSignalR.REPONSE_SUPP_TACHE, (retour: string) =>
+    {
+      const ID_TACHE: number = JSON.parse(retour).Id;
+
+      const INDEX = this.listeTache.findIndex(t => t.Id == ID_TACHE);
+      this.listeTache.splice(INDEX, 1);
+
+      this.outilServ.ToastInfo("Une tache a été supprimée");
     });
   }
 
@@ -129,8 +158,15 @@ export class ListingTacheComponent implements OnInit, OnDestroy
   {   
     this.signalrServ.DemanderQuitterGrpProjet(this.idProjet);
 
-    // se desabonner des reponses serveur
-    this.signalrServ.hubConnexion.off("reponse");
-    this.signalrServ.hubConnexion.off("reponseDemanderModifTache");
+    // fermer les reponses serveur pour le client
+    this.signalrServ.hubConnexion.off(CanalSignalR.REPONSE_MODIF_STATUT_TACHE);
+    this.signalrServ.hubConnexion.off(CanalSignalR.REPONSE_LISTE_TACHE);
+
+    this.signalrServ.hubConnexion.off(CanalSignalR.REPONSE_MODIF_DESC_TACHE);
+
+    this.signalrServ.hubConnexion.off(CanalSignalR.REPONSE_NOUVELLE_TACHE_EXPEDITEUR);
+    this.signalrServ.hubConnexion.off(CanalSignalR.REPONSE_NOUVELLE_TACHE);
+
+    this.signalrServ.hubConnexion.off(CanalSignalR.REPONSE_SUPP_TACHE);
   }
 }

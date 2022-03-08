@@ -26,8 +26,8 @@ export class ProjetService
     return this.http.post<number>(`${environment.URL_API}/projet/ajouter`, _info);
   }
 
-  Supprimer(_idProjet: number): Observable<any>
+  Supprimer(_idProjet: number): Observable<boolean>
   {
-    return this.http.delete<any>(`${environment.URL_API}/projet/supprimer/${_idProjet}`);
+    return this.http.delete<boolean>(`${environment.URL_API}/projet/supprimer/${_idProjet}`);
   }
 }

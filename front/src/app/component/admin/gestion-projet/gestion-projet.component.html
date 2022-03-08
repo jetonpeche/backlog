@@ -49,7 +49,7 @@
             <ng-container matColumnDef="supprimer">
                 <th class="th" mat-header-cell *matHeaderCellDef> Supprimer </th>
                 <td class="td" mat-cell *matCellDef="let row"> 
-                    <button mat-mini-fab color="warn" (click)="SupprimerProjet(row.Id, row.Nom)">
+                    <button mat-mini-fab color="warn" (click)="ConfirmerSupprimerProjet(row.Id, row.Nom)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>

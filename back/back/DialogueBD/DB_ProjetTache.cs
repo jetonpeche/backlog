@@ -56,9 +56,32 @@
             return tache;
         }
 
-        public static void Modifier(ProjetTache _tache)
+        /// <summary>
+        /// Modifier une tache
+        /// </summary>
+        /// <param name="_tache"></param>
+        /// <returns>CouleurFont, Nom (status)</returns>
+        public static dynamic Modifier(ProjetTache _tache)
         {
             context.ProjetTaches.Update(_tache);
+            context.SaveChanges();
+
+            var info = (from p in context.ProjetTaches
+                        where p.Id == _tache.Id
+                        select new
+                        {
+                            p.IdStatusTacheNavigation.CouleurFont,
+                            p.IdStatusTacheNavigation.Nom
+                        }).First();
+
+            return info;
+        }
+
+        public static void Supprimer(int _idTache)
+        {
+            ProjetTache tache = context.ProjetTaches.Where(p => p.Id == _idTache).First();
+
+            context.ProjetTaches.Remove(tache);
             context.SaveChanges();
         }
     }

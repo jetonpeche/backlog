@@ -1,6 +1,33 @@
 <h1 mat-dialog-title>Liste des taches</h1>
 <mat-dialog-content class="mat-typography">
 
+    <div class="titreAction">
+        <button mat-raised-button (click)="OuvrirModalAjouterTache()" color="primary">Ajouter</button>
+    </div>
+
+    <div class="row">
+
+        <!-- recherche -->
+        <div class="col">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Recherche</mat-label>
+                <input #inputRecherche matInput (keyup)="Rechercher(inputRecherche.value)">
+            </mat-form-field>
+        </div>
+
+        <!-- filtre status -->
+        <div class="col">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Status tache</mat-label>
+                <mat-select #select (selectionChange)="Filtrer(+select.value)">
+                    <mat-option *ngFor="let element of listeStatusTache" [value]="element.Id">
+                        {{ element.Nom }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
     <mat-card class="matCard" *ngFor="let element of listeTache; let i = index">
 
         <!-- titre -->
@@ -20,5 +47,15 @@
         <mat-card-content>
             <p>{{ element.Description }}</p>
         </mat-card-content>
+
+        <!-- btns supp / modif -->
+        <mat-card-actions align="end">
+            <button mat-raised-button color="accent" (click)="OuvrirModalModifierTache(element)">
+                <mat-icon>mode_edit</mat-icon>
+            </button>
+            <button mat-raised-button color="warn" (click)="ConfirmerSupprimerTache(element)">
+                <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
     </mat-card>
 </mat-dialog-content>

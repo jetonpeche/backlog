@@ -49,6 +49,8 @@ import { ListingTacheComponent } from './component/dev/listing-tache/listing-tac
 import { ModalAjouterTacheComponent } from './modal/dev/modal-ajouter-tache/modal-ajouter-tache.component';
 import { ModalVoirTacheProjetComponent } from './modal/admin/modal-voir-tache-projet/modal-voir-tache-projet.component';
 import { ModalConfirmationComponent } from './modal/modal-confirmation/modal-confirmation.component';
+import { ModalModifierProjetComponent } from './modal/admin/modal-modifier-projet/modal-modifier-projet.component';
+import { ModalModifierTacheComponent } from './modal/admin/modal-modifier-tache/modal-modifier-tache.component';
 //#endregion
 
 @NgModule({
@@ -66,7 +68,9 @@ import { ModalConfirmationComponent } from './modal/modal-confirmation/modal-con
     ListingTacheComponent,
     ModalAjouterTacheComponent,
     ModalVoirTacheProjetComponent,
-    ModalConfirmationComponent
+    ModalConfirmationComponent,
+    ModalModifierProjetComponent,
+    ModalModifierTacheComponent
   ],
   imports: [
     BrowserModule,

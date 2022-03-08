@@ -9,6 +9,7 @@ import { OutilService } from 'src/app/service/outil.service';
 import { ProjetService } from 'src/app/service/projet.service';
 import { ModalVoirTacheProjetComponent } from 'src/app/modal/admin/modal-voir-tache-projet/modal-voir-tache-projet.component';
 import { ModalConfirmationComponent } from 'src/app/modal/modal-confirmation/modal-confirmation.component';
+import { ModalModifierProjetComponent } from 'src/app/modal/admin/modal-modifier-projet/modal-modifier-projet.component';
 
 @Component({
   selector: 'app-gestion-projet',
@@ -78,10 +79,10 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
 
   OuvrirModalModifierProjet(_projet: Projet): void
   {
-
+    this.dialog.open(ModalModifierProjetComponent, { data: { projet: _projet }});
   }
 
-  SupprimerProjet(_idProjet: number, _nomProjet: string): void
+  ConfirmerSupprimerProjet(_idProjet: number, _nomProjet: string): void
   {
     const TITRE = `Confirmation suppression du projet: ${_nomProjet}`;
     const TEXTE = `Attention vous etes sur le point de supprimer le projet: ${_nomProjet}, \n veuillez confirmer`;
@@ -91,21 +92,9 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
     this.outilServ.sujet.subscribe({
       next: (retour: boolean) =>
       {
-        if(retour)
+        if(retour == true)
         {
-          this.projetServ.Supprimer(_idProjet).subscribe({
-            next: (retour) =>
-            {
-              if(retour == true)
-                this.outilServ.ToastSucces(`Le projet: ${_nomProjet} et toutes ses dépendances ont été supprimés`);
-              else
-                this.outilServ.ToastErreur(`Echec de la suppression du projet: ${_nomProjet}`);
-            },
-            error: () =>
-            {
-              this.outilServ.ToastErreurHttp();
-            }
-          })
+          this.Supprimer(_idProjet, _nomProjet);
         }
       }
     });
@@ -123,5 +112,29 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
         this.outilServ.ToastErreurHttp();
       }
     });
+  }
+
+  private Supprimer(_idProjet: number, _nomProjet: string): void
+  {
+    this.projetServ.Supprimer(_idProjet).subscribe({
+      next: (confirmationRetour: boolean) =>
+      {
+        if(confirmationRetour == true)
+        {
+          const INDEX = this.listeProjet.data.findIndex(p => p.Id == _idProjet);
+          this.listeProjet.data.splice(INDEX, 1);
+
+          this.listeProjet.data = this.listeProjet.data;
+
+          this.outilServ.ToastSucces(`Le projet: ${_nomProjet} et toutes ses dépendances ont été supprimés`);
+        }
+        else
+          this.outilServ.ToastErreur(`Echec de la suppression du projet: ${_nomProjet}`);
+      },
+      error: () =>
+      {
+        this.outilServ.ToastErreurHttp();
+      }
+    })
   }
 }

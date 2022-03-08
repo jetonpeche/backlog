@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import { environment } from 'src/environments/environment';
-import { Tache } from '../types/Tache';
 import { OutilService } from './outil.service';
 
 @Injectable({
@@ -13,7 +12,7 @@ export class SignalService
 
   constructor(private outilServ: OutilService) { }
 
-  StartConnexion()
+  StartConnexion(): void
   {
     this.hubConnexion = new signalR.HubConnectionBuilder()
 
@@ -53,8 +52,18 @@ export class SignalService
     await this.hubConnexion.invoke("ListerTache", _idProjet);
   }
 
-  async DemanderModifTache(_info): Promise<void>
+  async DemanderModifEtatTache(_info): Promise<void>
   {
     await this.hubConnexion.invoke("ModifierEtatTache", _info);
+  }
+
+  async DemanderModifDescriptionTache(_info): Promise<void>
+  {
+    await this.hubConnexion.invoke("ModifierDescriptionTache", _info);
+  }
+
+  async DemandeSuppTache(_info): Promise<void>
+  {
+    await this.hubConnexion.invoke("SupprimerTache", _info);
   }
 }
