@@ -96,7 +96,7 @@
 
         public static void Supprimer(int _idProjet)
         {
-            var projet = context.Projets.Where(p => p.Id == _idProjet).First();
+            Projet projet = context.Projets.Where(p => p.Id == _idProjet).First();
 
             context.Projets.Remove(projet);
             context.SaveChanges();

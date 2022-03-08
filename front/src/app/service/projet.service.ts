@@ -16,9 +16,9 @@ export class ProjetService
     return this.http.get<Projet[]>(`${environment.URL_API}/projet/lister`);
   }
 
-  Liste2(_id: number): Observable<Projet[]>
+  Liste2(_idDeveloppeur: number): Observable<Projet[]>
   {
-    return this.http.get<Projet[]>(`${environment.URL_API}/projet/lister2/${_id}`);
+    return this.http.get<Projet[]>(`${environment.URL_API}/projet/lister2/${_idDeveloppeur}`);
   }
 
   Ajouter(_info): Observable<number>

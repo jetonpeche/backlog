@@ -4,9 +4,13 @@ namespace back.signal
 {
     public class HubSignal: Hub
     {
+        public HubSignal(backlogContext _context)
+        {
+            DB_ProjetTache.context = _context;
+        }
+
         public async Task ListerTache(int _idProjet)
         {
-            DB_ProjetTache.context = GetContext();
             var liste = DB_ProjetTache.ListerTache(_idProjet);
 
             RejoindreGrpProjet(_idProjet);
@@ -23,7 +27,6 @@ namespace back.signal
                 IdStatusTache = 1
             };
 
-            DB_ProjetTache.context = GetContext();
             var tacheRetour = DB_ProjetTache.Ajouter(tache);
             string tacheRetourString = JsonConvert.SerializeObject(tacheRetour);
 
@@ -44,7 +47,6 @@ namespace back.signal
                 Description = Outil.ProtectionXSS(_tache.Description)
             };
 
-            DB_ProjetTache.context = GetContext();
             DB_ProjetTache.Modifier(tache);
             string tacheRetourString = JsonConvert.SerializeObject(new { IdStatusTache = _tache.IdStatusTache, Id = _tache.Id });
 
@@ -59,11 +61,6 @@ namespace back.signal
         private async void RejoindreGrpProjet(int _idProjet)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, $"projet{_idProjet}");
-        }
-
-        private backlogContext GetContext()
-        {
-            return new backlogContext();
         }
     }
 }

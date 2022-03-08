@@ -93,10 +93,22 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
       {
         if(retour)
         {
-          
+          this.projetServ.Supprimer(_idProjet).subscribe({
+            next: (retour) =>
+            {
+              if(retour == true)
+                this.outilServ.ToastSucces(`Le projet: ${_nomProjet} et toutes ses dépendances ont été supprimés`);
+              else
+                this.outilServ.ToastErreur(`Echec de la suppression du projet: ${_nomProjet}`);
+            },
+            error: () =>
+            {
+              this.outilServ.ToastErreurHttp();
+            }
+          })
         }
       }
-    })
+    });
   }
 
   private ListerProjet(): void

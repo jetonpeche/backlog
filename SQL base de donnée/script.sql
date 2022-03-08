@@ -7,7 +7,7 @@ DROP TABLE Compte;
 DROP TABLE TypeCompte;
 DROP TABLE TypeRetour;
 DROP TABLE StatusProjet;
-
+DROP TABLE StatusTache;
 
 CREATE TABLE TypeCompte
 (
@@ -84,7 +84,7 @@ CREATE TABLE Projet_Tache
     idProjet int NOT NULL,
 
     FOREIGN KEY (idStatusTache) REFERENCES StatusTache(id),
-    FOREIGN KEY (idProjet) REFERENCES Projet(id)
+    FOREIGN KEY (idProjet) REFERENCES Projet(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Projet_Compte
@@ -96,7 +96,7 @@ CREATE TABLE Projet_Compte
     PRIMARY KEY (idCompte, idProjet),
 
     FOREIGN KEY (idCompte) REFERENCES Compte(id),
-    FOREIGN KEY (idProjet) REFERENCES Projet(id)
+    FOREIGN KEY (idProjet) REFERENCES Projet(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Ticket
@@ -110,7 +110,7 @@ CREATE TABLE Ticket
 
     msg varchar(1000) NOT NULL,
 
-    FOREIGN KEY (idProjet) REFERENCES Projet(id),
+    FOREIGN KEY (idProjet) REFERENCES Projet(id) ON DELETE CASCADE,
     FOREIGN KEY (idCompte) REFERENCES Compte(id),
     FOREIGN KEY (idTypeRetour) REFERENCES TypeRetour(id),
     FOREIGN KEY (idEtatTicket) REFERENCES EtatTicket(id)
