@@ -58,6 +58,21 @@ public class CompteController : Controller
         }
     }
 
+    [HttpGet("listerIdCompteProjet/{idProjet}")]
+    public string ListerIdCompteProjet([FromRoute] int idProjet)
+    {
+        try
+        {
+            var liste = DB_Compte.ListerIdCompteProjet(idProjet);
+
+            return JsonConvert.SerializeObject(liste);
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(e);
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -126,4 +141,3 @@ public class CompteController : Controller
         }
     }
 }
-

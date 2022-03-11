@@ -91,7 +91,50 @@ namespace back.Controllers
             }
         }
 
-        // MODIFIER SCRIPT SQL POUR DELETE CASCADE + A TESTER
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_projet"></param>
+        /// <response code="200">true</response>
+        /// <response code="400">false</response>
+        /// <returns></returns>
+        [HttpPut("modifier")]
+        public string Modifier([FromBody] Import_ProjetModif _projet)
+        {
+            try
+            {
+                Compte compte = new()
+                {
+                    Id = _projet.IdClient,
+                    Nom = _projet.NomClient,
+                    Prenom = _projet.PrenomClient,
+                    NomEntreprise = _projet.NomEntreprise,
+                    Mail = _projet.Mail,
+                    Tel = _projet.Tel,
+                    Adresse = _projet.Adresse
+                };
+
+                Projet projet = new()
+                {
+                    Id = _projet.Id,
+                    Nom = _projet.Nom,
+                    Description = _projet.Description,
+                    IdCompteClient = _projet.IdClient
+                };
+
+                DB_ProjetCompte.context = context;
+                DB_ProjetCompte.Modifier(compte, projet);
+                DB_ProjetCompte.Ajouter(_projet.listeIdCompteAjout, _projet.Id);
+                DB_ProjetCompte.Supprimer(_projet.listeIdCompteSupp, _projet.Id);
+
+                return JsonConvert.SerializeObject(true);
+            }
+            catch (Exception)
+            {
+                return JsonConvert.SerializeObject(false);
+            }
+        }
+
         /// <summary>
         /// Supprime tout se qui est en rapport avec le projet
         /// </summary>

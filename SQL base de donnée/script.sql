@@ -138,7 +138,9 @@ SET IDENTITY_INSERT StatusTache OFF;
 SET IDENTITY_INSERT Compte ON;
 INSERT INTO Compte (id, nom, prenom, mail, mdp, tel, idTypeCompte) VALUES 
 (1, 'Admin', 'Peche', 'a@a.com', '$2a$11$0bCxQ/lStrdY01118wpzGef1/PwWJI7P1b71wRpzPLJ30lne8Zami', '1234567890', 1), 
-(2, 'Dev', 'Peche', 'a@b.com', '$2a$11$0bCxQ/lStrdY01118wpzGef1/PwWJI7P1b71wRpzPLJ30lne8Zami', '1234567890', 2);
+(2, 'Dev', 'Peche', 'a@b.com', '$2a$11$0bCxQ/lStrdY01118wpzGef1/PwWJI7P1b71wRpzPLJ30lne8Zami', '1234567890', 2),
+(5, 'Dev1', 'Peche', 'a@b.com', '$2a$11$0bCxQ/lStrdY01118wpzGef1/PwWJI7P1b71wRpzPLJ30lne8Zami', '1234567890', 2),
+(6, 'Dev2', 'Peche', 'a@b.com', '$2a$11$0bCxQ/lStrdY01118wpzGef1/PwWJI7P1b71wRpzPLJ30lne8Zami', '1234567890', 2);
 
 INSERT INTO Compte (id, nom, prenom, mail, mdp, tel, adresse, nomEntreprise, idTypeCompte) VALUES 
 (3, 'Client1', 'Peche', 'a@c.com', '$2a$11$0bCxQ/lStrdY01118wpzGef1/PwWJI7P1b71wRpzPLJ30lne8Zami', '1234567890', 'rue du test', 'Bungie', 3),

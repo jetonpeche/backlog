@@ -64,6 +64,29 @@ public static class DB_Compte
         return liste;
     }
 
+    public static IQueryable ListerCompteProjet(int _idProjet)
+    {
+        var liste = from c in context.ProjetComptes
+                    where c.IdProjet == _idProjet
+                    select new
+                    {
+                        c.IdCompte,
+                        c.IdCompteNavigation.Nom,
+                        c.IdCompteNavigation.Prenom
+                    };
+
+        return liste;
+    }
+
+    public static IQueryable ListerIdCompteProjet(int _idProjet)
+    {
+        var liste =  from c in context.ProjetComptes
+                     where c.IdProjet == _idProjet
+                     select new { c.IdCompte };
+
+        return liste;
+    }
+
     public static dynamic Compte(int _id)
     {
         dynamic info = (from compte in context.Comptes

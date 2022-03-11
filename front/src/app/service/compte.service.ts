@@ -10,7 +10,6 @@ import { CompteClient } from '../types/CompteClient';
 })
 export class CompteService 
 {
-
   constructor(private http: HttpClient) { }
 
   Lister(): Observable<CompteClient[]>
@@ -26,6 +25,11 @@ export class CompteService
   ListerClient(): Observable<CompteClient[]>
   {
     return this.http.get<CompteClient[]>(`${environment.URL_API}/compte/listerClient`);
+  }
+
+  ListerIdCompteProjet(_idProjet: number): Observable<any[]>
+  {
+    return this.http.get<any[]>(`${environment.URL_API}/compte/listerIdCompteProjet/${_idProjet}`);
   }
 
   Ajouter(_info: Compte): Observable<number>

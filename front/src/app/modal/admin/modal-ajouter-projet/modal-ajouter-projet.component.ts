@@ -34,7 +34,7 @@ export class ModalAjouterProjetComponent implements OnInit
   { 
     if(_form.invalid)
     {
-      this.outilServ.ToastErreur("Veuillez remplir tous les champs");
+      this.outilServ.ToastFormIncomplet();
       return;
     }
 

@@ -45,6 +45,11 @@ export class OutilService
     this.toast.error("Erreur réseaux", "Vous n'etes plus connecté à internet");
   }
 
+  ToastFormIncomplet(): void
+  {
+    this.toast.warning("Veuillez completer tous les champs");
+  }
+
   ToastInfo(_msg: string): void
   {
     this.toast.info(_msg);

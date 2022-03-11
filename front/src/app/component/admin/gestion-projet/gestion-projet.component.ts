@@ -8,7 +8,6 @@ import { ModalAjouterProjetComponent } from 'src/app/modal/admin/modal-ajouter-p
 import { OutilService } from 'src/app/service/outil.service';
 import { ProjetService } from 'src/app/service/projet.service';
 import { ModalVoirTacheProjetComponent } from 'src/app/modal/admin/modal-voir-tache-projet/modal-voir-tache-projet.component';
-import { ModalConfirmationComponent } from 'src/app/modal/modal-confirmation/modal-confirmation.component';
 import { ModalModifierProjetComponent } from 'src/app/modal/admin/modal-modifier-projet/modal-modifier-projet.component';
 
 @Component({
@@ -79,7 +78,25 @@ export class GestionProjetComponent implements OnInit, AfterViewInit
 
   OuvrirModalModifierProjet(_projet: Projet): void
   {
-    this.dialog.open(ModalModifierProjetComponent, { data: { projet: _projet }});
+    const DIALOG_REF = this.dialog.open(ModalModifierProjetComponent, { width: "80%", data: { projet: _projet }});
+
+    DIALOG_REF.afterClosed().subscribe({
+      next: (projetModif) =>
+      {
+        if(projetModif)
+        { 
+          _projet.Description = projetModif.Description;
+          _projet.Nom = projetModif.Nom;
+  
+          _projet.Client.Adresse = projetModif.Adresse;
+          _projet.Client.Mail = projetModif.Mail;
+          _projet.Client.Tel = projetModif.Tel;
+          _projet.Client.NomEntreprise = projetModif.NomEntreprise;
+          _projet.Client.Nom = projetModif.NomClient;
+          _projet.Client.Prenom = projetModif.PrenomClient;
+        }
+      }
+    });
   }
 
   ConfirmerSupprimerProjet(_idProjet: number, _nomProjet: string): void

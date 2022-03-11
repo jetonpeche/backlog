@@ -1,1 +1,94 @@
-<p>modal-modifier-projet works!</p>
+<h1 mat-dialog-title>Modifier projet</h1>
+<mat-dialog-content class="mat-typography">
+    <form #e="ngForm">
+
+        <!-- IDs -->
+        <input type="hidden" name="Id" [ngModel]="projet.Id" required>
+        <input type="hidden" name="IdStatutProjet" [ngModel]="projet.IdStatutProjet" required>
+        <input type="hidden" name="IdClient" [ngModel]="projet.Client.Id" required>
+
+        <!-- nom projet -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Nom projet</mat-label>
+            <input matInput type="text" name="Nom" [ngModel]="projet.Nom" required>
+        </mat-form-field>
+
+        <!-- description -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Textarea</mat-label>
+            <textarea matInput type="text" name="Description" rows="8" [ngModel]="projet.Description"></textarea>
+        </mat-form-field>
+
+        <p class="info">Informations client(e)</p>
+
+        <!-- nom prenom -->
+        <div class="row">
+
+            <!-- nom client -->
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nom</mat-label>
+                    <input matInput type="text" name="NomClient" [ngModel]="projet.Client.Nom" required>
+                </mat-form-field>
+            </div>
+
+            <!-- prenom client -->
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Prenom</mat-label>
+                    <input matInput type="text" name="PrenomClient" [ngModel]="projet.Client.Prenom" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- entreprise -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Entreprise</mat-label>
+            <input matInput type="text" name="NomEntreprise" [ngModel]="projet.Client.NomEntreprise" required>
+        </mat-form-field>
+
+        <!-- mail tel-->
+        <div class="row">
+
+            <!-- mail -->
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Mail</mat-label>
+                    <input matInput type="email" name="Mail" [ngModel]="projet.Client.Mail" required>
+                </mat-form-field>
+            </div>
+
+            <!-- tel -->
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Tel</mat-label>
+                    <input matInput type="tel" name="Tel" [ngModel]="projet.Client.Tel" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- adresse -->
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Adresse</mat-label>
+            <input matInput type="text" name="Adresse" [ngModel]="projet.Client.Adresse" required>
+        </mat-form-field>
+
+        <p class="info">Liste des comptes développeur</p>
+
+        <!-- liste compte dev -->
+        <mat-selection-list>
+            <mat-list-option 
+            [value]="element.Id" 
+            color="primary" 
+            [selected]="CompteEstDansProjet(element.Id)" 
+            (selectedChange)="CheckIdCompte(element.Id, $event)"
+            *ngFor="let element of listeCompteDev">
+              {{ element.Prenom }} {{ element.Nom }}
+            </mat-list-option>
+        </mat-selection-list>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="warn" mat-dialog-close>Fermer</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="Modifier(e)">Modifier</button>
+</mat-dialog-actions>
