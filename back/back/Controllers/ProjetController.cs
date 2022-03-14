@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace back.Controllers
+﻿namespace back.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -55,6 +53,21 @@ namespace back.Controllers
             catch (Exception e)
             {
 
+                return JsonConvert.SerializeObject(e);
+            }
+        }
+
+        [HttpGet("listerPasAssocier/{idCompte}")]
+        public string Lister3([FromRoute] int idCompte)
+        {
+            try
+            {
+                var liste = DB_Projet.ListerProjetPasAssocier(idCompte);
+
+                return JsonConvert.SerializeObject(liste);
+            }
+            catch (Exception e)
+            {
                 return JsonConvert.SerializeObject(e);
             }
         }
@@ -144,9 +157,16 @@ namespace back.Controllers
         [HttpDelete("supprimer/{idProjet}")]
         public string Supprimer([FromRoute] int idProjet)
         {
-            DB_Projet.Supprimer(idProjet);
+            try
+            {
+                DB_Projet.Supprimer(idProjet);
 
-            return JsonConvert.SerializeObject(true);
+                return JsonConvert.SerializeObject(true);
+            }
+            catch (Exception)
+            {
+                return JsonConvert.SerializeObject(false);
+            }
         }
     }
 }

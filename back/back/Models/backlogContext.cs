@@ -29,6 +29,7 @@ namespace back.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -83,7 +84,7 @@ namespace back.Models
                     .WithMany(p => p.Comptes)
                     .HasForeignKey(d => d.IdTypeCompte)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Compte__idTypeCo__59FA5E80");
+                    .HasConstraintName("FK__Compte__idTypeCo__2704CA5F");
             });
 
             modelBuilder.Entity<EtatTicket>(entity =>
@@ -124,18 +125,18 @@ namespace back.Models
                     .WithMany(p => p.Projets)
                     .HasForeignKey(d => d.IdCompteClient)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projet__idCompte__5EBF139D");
+                    .HasConstraintName("FK__Projet__idCompte__2BC97F7C");
 
                 entity.HasOne(d => d.IdStatusNavigation)
                     .WithMany(p => p.Projets)
                     .HasForeignKey(d => d.IdStatus)
-                    .HasConstraintName("FK__Projet__idStatus__5DCAEF64");
+                    .HasConstraintName("FK__Projet__idStatus__2AD55B43");
             });
 
             modelBuilder.Entity<ProjetCompte>(entity =>
             {
                 entity.HasKey(e => new { e.IdCompte, e.IdProjet })
-                    .HasName("PK__Projet_C__4A309BE4675D1576");
+                    .HasName("PK__Projet_C__4A309BE4153FBF6D");
 
                 entity.ToTable("Projet_Compte");
 
@@ -151,12 +152,12 @@ namespace back.Models
                     .WithMany(p => p.ProjetComptes)
                     .HasForeignKey(d => d.IdCompte)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projet_Co__idCom__66603565");
+                    .HasConstraintName("FK__Projet_Co__idCom__336AA144");
 
                 entity.HasOne(d => d.IdProjetNavigation)
                     .WithMany(p => p.ProjetComptes)
                     .HasForeignKey(d => d.IdProjet)
-                    .HasConstraintName("FK__Projet_Co__idPro__6754599E");
+                    .HasConstraintName("FK__Projet_Co__idPro__345EC57D");
             });
 
             modelBuilder.Entity<ProjetTache>(entity =>
@@ -177,13 +178,13 @@ namespace back.Models
                 entity.HasOne(d => d.IdProjetNavigation)
                     .WithMany(p => p.ProjetTaches)
                     .HasForeignKey(d => d.IdProjet)
-                    .HasConstraintName("FK__Projet_Ta__idPro__628FA481");
+                    .HasConstraintName("FK__Projet_Ta__idPro__2F9A1060");
 
                 entity.HasOne(d => d.IdStatusTacheNavigation)
                     .WithMany(p => p.ProjetTaches)
                     .HasForeignKey(d => d.IdStatusTache)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projet_Ta__idSta__619B8048");
+                    .HasConstraintName("FK__Projet_Ta__idSta__2EA5EC27");
             });
 
             modelBuilder.Entity<StatusProjet>(entity =>
@@ -239,24 +240,24 @@ namespace back.Models
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdCompte)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ticket__idCompte__6B24EA82");
+                    .HasConstraintName("FK__Ticket__idCompte__382F5661");
 
                 entity.HasOne(d => d.IdEtatTicketNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdEtatTicket)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ticket__idEtatTi__6D0D32F4");
+                    .HasConstraintName("FK__Ticket__idEtatTi__3A179ED3");
 
                 entity.HasOne(d => d.IdProjetNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdProjet)
-                    .HasConstraintName("FK__Ticket__idProjet__6A30C649");
+                    .HasConstraintName("FK__Ticket__idProjet__373B3228");
 
                 entity.HasOne(d => d.IdTypeRetourNavigation)
                     .WithMany(p => p.Tickets)
                     .HasForeignKey(d => d.IdTypeRetour)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ticket__idTypeRe__6C190EBB");
+                    .HasConstraintName("FK__Ticket__idTypeRe__39237A9A");
             });
 
             modelBuilder.Entity<TypeCompte>(entity =>

@@ -9,6 +9,8 @@ import { CompteService } from 'src/app/service/compte.service';
 import { OutilService } from 'src/app/service/outil.service';
 import { CompteClient } from 'src/app/types/CompteClient';
 import { TypeRole } from 'src/app/enums/TypeRole';
+import { ModalVoirProjetAssocierComponent } from 'src/app/modal/admin/modal-voir-projet-associer/modal-voir-projet-associer.component';
+import { Variable } from 'src/app/classeStatic/Variable';
 
 @Component({
   selector: 'app-gestion-compte',
@@ -36,6 +38,11 @@ export class GestionCompteComponent implements OnInit, AfterViewInit
     this.paginator._intl.itemsPerPageLabel = "Ligne par page";
     this.listeCompte.paginator = this.paginator;
     this.listeCompte.sort = this.sort;
+  }
+
+  EstCompteDevOuClient(_idCompte): boolean
+  {
+    return this.outilServ.EstRoleDev(_idCompte) || this.outilServ.EstRoleClient(_idCompte);
   }
 
   applyFilter(event: Event): void
@@ -78,17 +85,15 @@ export class GestionCompteComponent implements OnInit, AfterViewInit
           _compte.Prenom = retour.Prenom;
           _compte.Mail = retour.Mail;
           _compte.Tel = retour.Tel;
-
-          if(retour.TypeCompte == TypeRole.CLIENT)
-          {
-
-          }
-
           _compte.TypeCompte = retour.TypeCompte;
-          _compte.IdTypeCompte = retour.IdTypeCompte;
         }
       }
-    })
+    });
+  }
+
+  OuvrirModalVoirProjetAssocier(_idCompte: number): void
+  {
+    this.dialog.open(ModalVoirProjetAssocierComponent, { data: { idCompte: _idCompte }});
   }
 
   private ListerCompte(): void

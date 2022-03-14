@@ -4,6 +4,7 @@
 
         <!-- id -->
         <input type="hidden" name="Id" [ngModel]="data.compte.Id">
+        <input type="hidden" name="IdTypeCompte" [ngModel]="data.compte.IdTypeCompte">
 
         <div class="row">
             <!-- nom -->
@@ -52,16 +53,6 @@
         <mat-form-field *ngIf="EstRoleClient()" class="full-width" appearance="outline">
             <mat-label>Adresse</mat-label>
             <input matInput name="Adresse" type="text" maxlength="300" [ngModel]="data.compte.Adresse" required>
-        </mat-form-field>
-
-        <!-- role -->
-        <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Role</mat-label>
-            <mat-select #selectRole name="IdTypeCompte" [ngModel]="data.compte.IdTypeCompte" required>
-                <mat-option *ngFor="let element of listeTypeCompte" [value]="element.Id">
-                    {{ element.Nom }}
-                </mat-option>
-            </mat-select>
         </mat-form-field>
     </form>
 </mat-dialog-content>

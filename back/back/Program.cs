@@ -17,7 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddSignalR(option => option.EnableDetailedErrors = true);
 
 // connection a la base de donnée
-builder.Services.AddDbContext<backlogContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("pcPortable")));
+builder.Services.AddDbContext<backlogContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("pc")));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(swagger =>

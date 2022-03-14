@@ -43,7 +43,6 @@ import { ModalAjouterCompteComponent } from './modal/admin/modal-ajouter-compte/
 import { ModalModifierCompteComponent } from './modal/admin/modal-modifier-compte/modal-modifier-compte.component';
 import { GestionProjetComponent } from './component/admin/gestion-projet/gestion-projet.component';
 import { ModalAjouterProjetComponent } from './modal/admin/modal-ajouter-projet/modal-ajouter-projet.component';
-import { ModalSupprimerProjetComponent } from './modal/admin/modal-supprimer-projet/modal-supprimer-projet.component';
 import { AccueilDevComponent } from './component/dev/accueil/accueil-dev.component';
 import { ListingTacheComponent } from './component/dev/listing-tache/listing-tache.component';
 import { ModalAjouterTacheComponent } from './modal/dev/modal-ajouter-tache/modal-ajouter-tache.component';
@@ -51,6 +50,7 @@ import { ModalVoirTacheProjetComponent } from './modal/admin/modal-voir-tache-pr
 import { ModalConfirmationComponent } from './modal/modal-confirmation/modal-confirmation.component';
 import { ModalModifierProjetComponent } from './modal/admin/modal-modifier-projet/modal-modifier-projet.component';
 import { ModalModifierTacheComponent } from './modal/admin/modal-modifier-tache/modal-modifier-tache.component';
+import { ModalVoirProjetAssocierComponent } from './modal/admin/modal-voir-projet-associer/modal-voir-projet-associer.component';
 //#endregion
 
 @NgModule({
@@ -63,14 +63,14 @@ import { ModalModifierTacheComponent } from './modal/admin/modal-modifier-tache/
     ModalModifierCompteComponent,
     GestionProjetComponent,
     ModalAjouterProjetComponent,
-    ModalSupprimerProjetComponent,
     AccueilDevComponent,
     ListingTacheComponent,
     ModalAjouterTacheComponent,
     ModalVoirTacheProjetComponent,
     ModalConfirmationComponent,
     ModalModifierProjetComponent,
-    ModalModifierTacheComponent
+    ModalModifierTacheComponent,
+    ModalVoirProjetAssocierComponent
   ],
   imports: [
     BrowserModule,

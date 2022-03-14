@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>Modifier tache</h1>
+<mat-dialog-content class="mat-typography">
+
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Liste projets disponible</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let element of listeProjetPasAssocier" [value]="element.Id">
+                    {{ element.Nom }} - Client: {{ element.Client.NomEntreprise }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="margeTop flexCard">
+        <mat-card *ngFor="let element of listeProjetAssocier; let i = index" class="example-card">
+          <mat-card-header>
+            <mat-card-title>{{ element.Nom }}</mat-card-title>
+            <mat-card-subtitle>
+              Client : {{ element.Client.NomEntreprise }}
+              <ul>
+                <li>Nom: <span>{{ element.Client.Prenom | titlecase }} {{ element.Client.Nom | uppercase }}</span></li>
+                <li>Mail: <span><a [href]="'mailto:' + element.Client.Mail">{{ element.Client.Mail }}</a></span> </li>
+                <li>Tel: <span>{{ FormatNumTel(element.Client.Tel) }}</span></li>
+              </ul>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p style="white-space: pre-wrap;">
+              Description: <br><br>
+              {{ element.Description }}
+            </p>
+    
+            <p style="position: absolute; bottom: 3%;">
+              <span matBadge="4" matBadgeOverlap="false">Nombre de fonctionalité(s) restante(s)</span>
+            </p>
+          </mat-card-content>
+        </mat-card>
+        
+    </div>
+
+</mat-dialog-content>

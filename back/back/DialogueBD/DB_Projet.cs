@@ -86,6 +86,34 @@
             return liste;
         }
 
+        public static IQueryable ListerProjetPasAssocier(int _idCompte)
+        {
+            var liste = from p in context.ProjetComptes
+                        where p.IdCompte != _idCompte
+                        select new
+                        {
+                            Id = p.IdProjet,
+                            Nom = p.IdProjetNavigation.Nom,
+                            Description = p.IdProjetNavigation.Description,
+
+                            Client = new
+                            {
+                                Id = p.IdProjetNavigation.IdCompteClient,
+                                p.IdProjetNavigation.IdCompteClientNavigation.Prenom,
+                                p.IdProjetNavigation.IdCompteClientNavigation.Nom,
+                                p.IdProjetNavigation.IdCompteClientNavigation.Mail,
+                                p.IdProjetNavigation.IdCompteClientNavigation.Tel,
+                                p.IdProjetNavigation.IdCompteClientNavigation.Adresse,
+                                p.IdProjetNavigation.IdCompteClientNavigation.NomEntreprise
+                            },
+
+                            IdStatutProjet = p.IdProjetNavigation.IdStatusNavigation.Id,
+                            StatutProjet = p.IdProjetNavigation.IdStatusNavigation.Nom
+                        };
+
+            return liste;
+        }
+
         public static int Ajouter(Projet _projet)
         {
             context.Projets.Add(_projet);

@@ -5,7 +5,7 @@
         <mat-card-subtitle>
           Client : {{ element.Client.NomEntreprise }}
           <ul>
-            <li>Nom: <span>{{ element.Client.Prenom |titlecase }} {{ element.Client.Nom | uppercase }}</span></li>
+            <li>Nom: <span>{{ element.Client.Prenom | titlecase }} {{ element.Client.Nom | uppercase }}</span></li>
             <li>Mail: <span><a [href]="'mailto:' + element.Client.Mail">{{ element.Client.Mail }}</a></span> </li>
             <li>Tel: <span>{{ FormatNumTel(element.Client.Tel) }}</span></li>
           </ul>

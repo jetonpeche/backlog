@@ -21,6 +21,11 @@ export class ProjetService
     return this.http.get<Projet[]>(`${environment.URL_API}/projet/lister2/${_idDeveloppeur}`);
   }
 
+  ListerProjetPasAssocier(_idCompte: number): Observable<Projet[]>
+  {
+    return this.http.get<Projet[]>(`${environment.URL_API}/projet/listerPasAssocier/${_idCompte}`);
+  }
+
   Ajouter(_info): Observable<number>
   {
     return this.http.post<number>(`${environment.URL_API}/projet/ajouter`, _info);
