@@ -7,6 +7,7 @@ import { SignalService } from './service/signal.service';
 import { TypeCompte } from './types/TypeCompte';
 import { OutilService } from './service/outil.service';
 import { TypeCompteService } from './service/type-compte.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ export class AppComponent implements OnInit
     private breakpointObserver: BreakpointObserver, 
     private signalServ: SignalService,
     private outilServ: OutilService,
-    private typeCompteServ: TypeCompteService){ }
+    private typeCompteServ: TypeCompteService,
+    private router: Router){ }
 
   ngOnInit() 
   {
@@ -35,6 +37,15 @@ export class AppComponent implements OnInit
   EstConnecter(): boolean
   {
     return Variable.EstConnecter;
+  }
+
+  Deconexion(): void
+  {
+    Variable.EstConnecter = false;
+    Variable.compteConnecter = null;
+    Variable.listeTypeCompte.length = 0;
+
+    this.router.navigate([""]);
   }
 
   private ListerTypeCompte(): void

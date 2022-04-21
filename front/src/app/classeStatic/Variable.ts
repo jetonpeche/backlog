@@ -3,7 +3,7 @@ import { TypeCompte } from "../types/TypeCompte";
 
 export class Variable
 {
-    static EstConnecter: boolean = true;
+    static EstConnecter: boolean = false;
     static compteConnecter: Compte;
     static listeTypeCompte: TypeCompte[] = [];
 }

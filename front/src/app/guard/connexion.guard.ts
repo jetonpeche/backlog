@@ -14,7 +14,12 @@ export class ConnexionGuard implements CanActivate
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-      return Variable.EstConnecter ? true : this.router.navigate([""]);
+      if(Variable.EstConnecter)
+        return true;
+      else
+      {
+        this.router.navigate([""]);
+        return false;
+      }
   }
-  
 }
