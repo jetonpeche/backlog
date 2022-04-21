@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:27540",
+      "applicationUrl": "https://backlogapi.jetonpeche.fr",
       "sslPort": 0
     }
   },

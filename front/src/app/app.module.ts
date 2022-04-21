@@ -53,6 +53,9 @@ import { ModalModifierTacheComponent } from './modal/admin/modal-modifier-tache/
 import { ModalVoirProjetAssocierComponent } from './modal/admin/modal-voir-projet-associer/modal-voir-projet-associer.component';
 //#endregion
 
+// permet de donner la possibilité de refrech la page en mode prod en ajoutant un # sur URL
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,7 +106,7 @@ import { ModalVoirProjetAssocierComponent } from './modal/admin/modal-voir-proje
     MatBadgeModule
   ],
   entryComponents: [ModalAjouterCompteComponent, ModalModifierCompteComponent],
-  providers: [OutilService, ConnexionService, CompteService, TypeCompteService],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, OutilService, ConnexionService, CompteService, TypeCompteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
