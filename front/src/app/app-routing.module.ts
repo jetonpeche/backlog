@@ -6,15 +6,16 @@ import { GestionProjetComponent } from './component/admin/gestion-projet/gestion
 import { ConnexionComponent } from './component/connexion/connexion.component';
 import { AccueilDevComponent } from './component/dev/accueil/accueil-dev.component';
 import { ListingTacheComponent } from './component/dev/listing-tache/listing-tache.component';
+import { ConnexionGuard } from './guard/connexion.guard';
 
 const routes: Routes = [
   { path: "", component: ConnexionComponent },
-  { path: "acceuilAdmin", component: AccueilComponent },
-  { path: "acceuilDev", component: AccueilDevComponent },
-  { path: "gestion-compte", component: GestionCompteComponent },
-  { path: "gestion-projet", component: GestionProjetComponent },
+  { path: "acceuilAdmin", canActivate: [ConnexionGuard], component: AccueilComponent },
+  { path: "acceuilDev", canActivate: [ConnexionGuard], component: AccueilDevComponent },
+  { path: "gestion-compte", canActivate: [ConnexionGuard], component: GestionCompteComponent },
+  { path: "gestion-projet", canActivate: [ConnexionGuard], component: GestionProjetComponent },
 
-  {path: "tache/:id", component: ListingTacheComponent }
+  {path: "tache/:id", canActivate: [ConnexionGuard], component: ListingTacheComponent }
 ];
 
 @NgModule({
